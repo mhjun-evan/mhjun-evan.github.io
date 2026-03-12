@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechnoPro 인물 관계도 | PopcornSAR</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22263a;
+    --accent: #6c8cff;
+    --accent2: #ff6b8a;
+    --accent3: #5ce0d8;
+    --accent4: #ffd166;
+    --text: #e8eaf0;
+    --text-dim: #8b90a0;
+    --border: #2a2e3e;
+    --holdings: #6c8cff;
+    --design: #5ce0d8;
+    --popcorn: #ff6b8a;
+    --tier1: #ffd166;
+    --tier2: #6c8cff;
+    --tier3: #8b90a0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Pretendard', 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a1d27 0%, #22263a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .header h1 span { color: var(--accent); }
+  .header-meta {
+    font-size: 13px;
+    color: var(--text-dim);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .header-meta .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  /* Layout */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 40px;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 4px;
+    width: fit-content;
+  }
+  .tab {
+    padding: 10px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    border: none;
+    background: transparent;
+  }
+  .tab:hover { color: var(--text); background: rgba(108,140,255,0.1); }
+  .tab.active { background: var(--accent); color: #fff; }
+
+  /* Tab Content */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* === ORG CHART TAB === */
+  .org-section {
+    margin-bottom: 40px;
+  }
+  .org-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .org-section-title .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .org-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  /* Person Card */
+  .person-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .person-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    border-radius: 12px 0 0 12px;
+  }
+  .person-card.holdings::before { background: var(--holdings); }
+  .person-card.design::before { background: var(--design); }
+  .person-card.popcorn::before { background: var(--popcorn); }
+
+  .person-card:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(108,140,255,0.15);
+  }
+  .person-card.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(108,140,255,0.3);
+  }
+  .person-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .person-name-kr {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .person-org {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .person-org.holdings { background: rgba(108,140,255,0.15); color: var(--holdings); }
+  .person-org.design { background: rgba(92,224,216,0.15); color: var(--design); }
+  .person-org.popcorn { background: rgba(255,107,138,0.15); color: var(--popcorn); }
+
+  .person-role {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .tier-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+  .tier-badge.tier1 { background: rgba(255,209,102,0.2); color: var(--tier1); }
+  .tier-badge.tier2 { background: rgba(108,140,255,0.2); color: var(--tier2); }
+  .tier-badge.tier3 { background: rgba(139,144,160,0.2); color: var(--tier3); }
+
+  /* Detail Panel */
+  .detail-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 24px;
+    display: none;
+    animation: slideUp 0.3s ease;
+  }
+  .detail-panel.visible { display: block; }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .detail-name {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .detail-close {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: var(--text-dim);
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .detail-close:hover { background: rgba(255,107,138,0.2); color: var(--accent2); }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .detail-item {
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .detail-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .detail-value {
+    font-size: 14px;
+    color: var(--text);
+  }
+  .detail-value a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .detail-value a:hover { text-decoration: underline; }
+
+  .detail-notes {
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(108,140,255,0.08);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent);
+  }
+  .detail-notes p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* === PROJECTS TAB === */
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .project-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .project-status.hot { background: rgba(255,107,138,0.15); color: var(--accent2); }
+  .project-status.waiting { background: rgba(255,209,102,0.15); color: var(--accent4); }
+  .project-status.new { background: rgba(92,224,216,0.15); color: var(--accent3); }
+  .project-status .pulse {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  .project-status.hot .pulse { background: var(--accent2); }
+  .project-status.waiting .pulse { background: var(--accent4); }
+  .project-status.new .pulse { background: var(--accent3); }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .project-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .project-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .project-detail-item {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .project-detail-item .label {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .project-detail-item .value {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .action-items {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(255,209,102,0.06);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent4);
+  }
+  .action-items h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent4);
+    margin-bottom: 10px;
+  }
+  .action-items li {
+    font-size: 13px;
+    margin-bottom: 6px;
+    margin-left: 16px;
+    color: var(--text);
+  }
+
+  /* === QUICK REF TAB === */
+  .quick-ref-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .quick-ref-table th {
+    background: rgba(108,140,255,0.1);
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+  }
+  .quick-ref-table td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .quick-ref-table tr:hover td {
+    background: rgba(108,140,255,0.04);
+  }
+  .tips-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .tips-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tip-item {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .tip-item strong { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header { padding: 20px; }
+    .container { padding: 20px; }
+    .org-grid { grid-template-columns: 1fr; }
+    .detail-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Connection Line Visualization */
+  .connection-map {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .conn-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .conn-row:last-child { border-bottom: none; }
+  .conn-person {
+    min-width: 140px;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .conn-person.tp { color: var(--holdings); }
+  .conn-person.ps { color: var(--popcorn); }
+  .conn-arrow {
+    color: var(--text-dim);
+    font-size: 18px;
+    min-width: 30px;
+    text-align: center;
+  }
+  .conn-topic {
+    background: rgba(255,255,255,0.05);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1><span>TechnoPro</span> 인물 관계도</h1>
+  <div class="header-meta">
+    <span><span class="dot"></span>최종 업데이트: 2026-03-12</span>
+    <span>|</span>
+    <span>11명 · 2개 조직</span>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('org')">조직도</button>
+    <button class="tab" onclick="switchTab('projects')">프로젝트</button>
+    <button class="tab" onclick="switchTab('quickref')">미팅 Quick Ref</button>
+  </div>
+
+  <!-- ORG TAB -->
+  <div id="tab-org" class="tab-content active">
+
+    <!-- Tier Legend -->
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:28px; padding:18px 24px; background:var(--card); border-radius:12px; border:1px solid var(--border);">
+      <div style="font-size:12px; color:var(--text-dim); font-weight:600; text-transform:uppercase; letter-spacing:0.08em; width:100%; margin-bottom:6px;">Tier 등급 정의</div>
+      <div style="display:flex; align-items:flex-start; gap:10px; flex:1; min-width:200px;">
+        <span style="background:rgba(255,209,102,0.2); color:#ffd166; border-radius:6px; padding:3px 10px; font-size:11px; font-weight:700; white-space:nowrap; margin-top:1px;">TIER 1</span>
+        <div>
+          <div style="font-size:13px; font-weight:600; color:var(--text);">의사결정권자 / C-레벨</div>
+          <div style="font-size:12px; color:var(--text-dim); margin-top:2px;">최종 승인 및 전략적 방향 결정. 주요 메일 수신자로 반드시 포함해야 할 핵심 인물.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:10px; flex:1; min-width:200px;">
+        <span style="background:rgba(108,140,255,0.2); color:#6c8cff; border-radius:6px; padding:3px 10px; font-size:11px; font-weight:700; white-space:nowrap; margin-top:1px;">TIER 2</span>
+        <div>
+          <div style="font-size:13px; font-weight:600; color:var(--text);">실무 핵심 담당자</div>
+          <div style="font-size:12px; color:var(--text-dim); margin-top:2px;">프로젝트를 직접 운영하고 Next Action을 실행하는 실무 책임자. 일상적 커뮤니케이션의 주요 상대.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:10px; flex:1; min-width:200px;">
+        <span style="background:rgba(139,144,160,0.2); color:#8b90a0; border-radius:6px; padding:3px 10px; font-size:11px; font-weight:700; white-space:nowrap; margin-top:1px;">TIER 3</span>
+        <div>
+          <div style="font-size:13px; font-weight:600; color:var(--text);">지원 / 코디네이터 / 정보 공유 라인</div>
+          <div style="font-size:12px; color:var(--text-dim); margin-top:2px;">일정 조율, 행정 지원, CC 정보 공유 담당. 직접 의사결정에 관여하지 않으나 채널 관리 필요.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Holdings -->
+    <div class="org-section">
+      <div class="org-section-title">
+        TechnoPro Holdings · 持株会社
+        <span class="line"></span>
+      </div>
+      <div class="org-grid" id="holdings-grid"></div>
+    </div>
+
+    <!-- Design -->
+    <div class="org-section">
+      <div class="org-section-title">
+        TechnoPro Design · 子会社
+        <span class="line"></span>
+      </div>
+      <div class="org-grid" id="design-grid"></div>
+    </div>
+
+    <!-- PopcornSAR -->
+    <div class="org-section">
+      <div class="org-section-title">
+        PopcornSAR · 대응 담당자
+        <span class="line"></span>
+      </div>
+      <div class="org-grid" id="popcorn-grid"></div>
+    </div>
+
+    <!-- Communication Map -->
+    <div class="org-section">
+      <div class="org-section-title">
+        커뮤니케이션 매핑
+        <span class="line"></span>
+      </div>
+      <div class="connection-map">
+        <div class="conn-row">
+          <span class="conn-person tp">齋藤 廣達 (사이토 코타츠)</span>
+          <span class="conn-arrow">⟷</span>
+          <span class="conn-person ps">전민현 (Jun)</span>
+          <span class="conn-topic">AI 전략 · PARVIS 도입</span>
+        </div>
+        <div class="conn-row">
+          <span class="conn-person tp">高瀬 健一郎 (타카세 켄이치로)</span>
+          <span class="conn-arrow">⟷</span>
+          <span class="conn-person ps">전민현 (Jun)</span>
+          <span class="conn-topic">PARVIS 도입 · AI COE 운영</span>
+        </div>
+        <div class="conn-row">
+          <span class="conn-person tp">秋山 佳弘 (아키야마 요시히로)</span>
+          <span class="conn-arrow">⟷</span>
+          <span class="conn-person ps">채승엽 (Chae) CEO</span>
+          <span class="conn-topic">전략적 파트너십 관계 구축</span>
+        </div>
+        <div class="conn-row">
+          <span class="conn-person tp">小久保 京介 (코쿠보 쿄스케)</span>
+          <span class="conn-arrow">⟷</span>
+          <span class="conn-person ps">전민현 (Jun)</span>
+          <span class="conn-topic">Honda PJ · 모빌리티 실무</span>
+        </div>
+        <div class="conn-row">
+          <span class="conn-person tp">宮辻 千笑香 (미야츠지 치에카)</span>
+          <span class="conn-arrow">⟷</span>
+          <span class="conn-person ps">전민현 (Jun)</span>
+          <span class="conn-topic">일정 조율 · 행정</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detail Panel -->
+    <div class="detail-panel" id="detail-panel">
+      <div class="detail-header">
+        <div>
+          <div class="detail-name" id="detail-name"></div>
+          <div id="detail-name-kr" style="color:var(--text-dim); font-size:14px; margin-top:4px;"></div>
+        </div>
+        <button class="detail-close" onclick="closeDetail()">✕</button>
+      </div>
+      <div class="detail-grid" id="detail-grid"></div>
+      <div class="detail-notes" id="detail-notes" style="display:none">
+        <div class="detail-label">핵심 메모</div>
+        <p id="detail-notes-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS TAB -->
+  <div id="tab-projects" class="tab-content">
+
+    <div class="project-card">
+      <div class="project-status hot"><span class="pulse"></span> 적극 추진 중</div>
+      <div class="project-title">PARVIS 트라이얼 도입</div>
+      <p style="font-size:14px; color:var(--text-dim); margin-bottom:16px;">
+        3/10 AI 전략 미팅(대면, 六本木ヒルズ) 이후 高瀬 健一郎 (타카세 켄이치로)가 구체적 Next Action을 제시하며 적극 추진 중.
+        모빌리티統括部 1개 팀(5명) 대상 트라이얼 도입이 목표.
+      </p>
+      <div class="project-detail-grid">
+        <div class="project-detail-item">
+          <div class="label">다음 미팅</div>
+          <div class="value" style="color:var(--accent2); font-weight:600;">3/16(월) 14:30-15:30</div>
+        </div>
+        <div class="project-detail-item">
+          <div class="label">형식</div>
+          <div class="value">Teams 온라인</div>
+        </div>
+        <div class="project-detail-item">
+          <div class="label">TechnoPro 참석</div>
+          <div class="value">齋藤 廣達 (사이토), 高瀬 健一郎 (타카세), 秋山 佳弘 (아키야마)</div>
+        </div>
+        <div class="project-detail-item">
+          <div class="label">PopcornSAR 참석</div>
+          <div class="value">Jun, Chae, Kang</div>
+        </div>
+      </div>
+      <div class="action-items">
+        <h4>논의 예정 사항 (高瀬 健一郎 (타카세 켄이치로) 제시)</h4>
+        <ol>
+          <li>PARVIS 요금체계 / 계약 상세 (연간계약? 트라이얼?)</li>
+          <li>레벨별 교육플랜 개요, 목표, 요금</li>
+          <li>도입에 필요한 인프라 확인</li>
+          <li>생성AI 엔진 라이선스 비용 (포함 여부)</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-status waiting"><span class="pulse"></span> 대기 중</div>
+      <div class="project-title">Honda向けPJ (호다 프로젝트)</div>
+      <p style="font-size:14px; color:var(--text-dim); margin-bottom:16px;">
+        Honda 담당자로부터 회신이 없는 상황. 小久保 京介 (코쿠보 쿄스케)가 Honda 측에 확인 중이나, 4월부터 프로젝트 대응이 어려울 수 있다는 언급 있음.
+      </p>
+      <div class="project-detail-grid">
+        <div class="project-detail-item">
+          <div class="label">담당</div>
+          <div class="value">小久保 京介 ↔ 전민현</div>
+        </div>
+        <div class="project-detail-item">
+          <div class="label">마지막 업데이트</div>
+          <div class="value">2026-03-02</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-status new"><span class="pulse"></span> 신규</div>
+      <div class="project-title">경영진 관계 구축 (Strategic Partnership)</div>
+      <p style="font-size:14px; color:var(--text-dim); margin-bottom:16px;">
+        秋山 佳弘 (아키야마 요시히로, 사업개발부)이 3/10 미팅 이후 PopcornSAR CEO(チェ)에 직접 연락.
+        "경영진의 프레젠테이션 수용도 공유" 및 "관계 방향성 디스커션"을 위한 별도 1시간 온라인 미팅 제안.
+        Holdings 사업개발부가 전략적 파트너십 레벨로 격상을 검토 중인 시그널.
+      </p>
+      <div class="project-detail-grid">
+        <div class="project-detail-item">
+          <div class="label">TechnoPro 측</div>
+          <div class="value">秋山 佳弘 (아키야마 요시히로, 사업개발부)</div>
+        </div>
+        <div class="project-detail-item">
+          <div class="label">PopcornSAR 측</div>
+          <div class="value">채승엽 CEO</div>
+        </div>
+        <div class="project-detail-item">
+          <div class="label">형식</div>
+          <div class="value">1시간 온라인</div>
+        </div>
+        <div class="project-detail-item">
+          <div class="label">일정</div>
+          <div class="value" style="color:var(--accent3);">조율 중</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REF TAB -->
+  <div id="tab-quickref" class="tab-content">
+
+    <div class="tips-card">
+      <h3>📋 3/16 PARVIS 도입 미팅 참석자</h3>
+      <table class="quick-ref-table">
+        <thead>
+          <tr>
+            <th>이름</th>
+            <th>소속</th>
+            <th>역할</th>
+            <th>미팅 시 참고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">齋藤 廣達 (사이토 코타츠)</td>
+            <td>Holdings 경영층</td>
+            <td>의사결정</td>
+            <td>말수 적으나 영향력 큼. 전략적 가치(ROI) 어필 필요</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">高瀬 健一郎 (타카세 켄이치로)</td>
+            <td>Holdings AI COE</td>
+            <td>추진 리더</td>
+            <td>구체적 질문 다수 예상. 4가지 질문에 명확한 답변 준비</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">秋山 佳弘 (아키야마 요시히로)</td>
+            <td>Holdings 사업개발</td>
+            <td>전략 검토</td>
+            <td>CEO 라인 별도 운영 중. 파트너십 확대 시그널 감지</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tips-card">
+      <h3>💡 미팅 준비 체크리스트</h3>
+      <div class="tip-item">
+        <strong>① 요금체계</strong> — 연간계약 vs 트라이얼 옵션, 5명 기준 단가, 볼륨 디스카운트 구조
+      </div>
+      <div class="tip-item">
+        <strong>② 교육플랜</strong> — 레벨별(초급/중급/고급) 교육 과정, 기간, 목표 역량, 별도 비용
+      </div>
+      <div class="tip-item">
+        <strong>③ 인프라</strong> — 도입에 필요한 IT 인프라, 시스템 요구사항, 보안 인증 여부
+      </div>
+      <div class="tip-item">
+        <strong>④ AI 엔진 라이선스</strong> — 생성AI 엔진 비용이 PARVIS에 포함인지 별도인지 명확히
+      </div>
+    </div>
+
+    <div class="tips-card">
+      <h3>⚡ Key Do's & Don'ts</h3>
+      <div class="tip-item" style="border-left:3px solid var(--accent3); padding-left:14px;">
+        ✅ 齋藤 廣達 (사이토 코타츠)에게는 ROI와 경쟁우위 중심으로 어필
+      </div>
+      <div class="tip-item" style="border-left:3px solid var(--accent3); padding-left:14px;">
+        ✅ 高瀬 健一郎 (타카세 켄이치로)의 4가지 질문에 숫자와 구체적 플랜으로 대응
+      </div>
+      <div class="tip-item" style="border-left:3px solid var(--accent3); padding-left:14px;">
+        ✅ 秋山 佳弘 (아키야마 요시히로)의 경영진 관계 구축 제안에 대해 CEO 라인 별도 대응 준비
+      </div>
+      <div class="tip-item" style="border-left:3px solid var(--accent2); padding-left:14px;">
+        ⚠️ Honda PJ 상태가 불투명 — 이번 미팅에서는 PARVIS에 집중하되, Honda 진행 현황 간단히 확인
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const people = [
+  {
+    id: 'saito', name: '齋藤 廣達', nameKr: '사이토 코타츠', org: 'holdings',
+    tier: 1, role: '경영층 · 임원급',
+    email: 'Saito.Kotatsu@technopro.com',
+    dept: 'TechnoPro Holdings',
+    counterpart: '전민현 (Jun)',
+    notes: '주요 메일의 To: 수신자로 항상 高瀬 健一郎 (타카세 켄이치로)와 함께 포함. 직접 메일을 보내는 빈도는 낮으나 중요한 의사결정 메일에 항상 수신자로 포함됨. AI 전략 미팅(3/10)에 대면 참석, PARVIS 도입 미팅(3/16)에도 참석 예정. 최종 의사결정에 영향력이 큰 인물로 추정.'
+  },
+  {
+    id: 'takase', name: '高瀬 健一郎', nameKr: '타카세 켄이치로', org: 'holdings',
+    tier: 1, role: 'AI COE 리더',
+    email: 'Takase.Kenichiro@technopro.com',
+    dept: 'TechnoPro Holdings · AI Center of Excellence',
+    counterpart: '전민현 (Jun)',
+    notes: '실질적 프로젝트 추진자. Next Action을 직접 제시하고 구체적 아젠다를 설정. 3/10 미팅 후 PARVIS 트라이얼 도입을 위한 4가지 Next Action 제시 (요금체계, 교육플랜, 인프라, AI엔진 라이선스). 메일 응답이 빠르고 적극적. 宮辻 千笑香 (미야츠지 치에카)에게 일정 조율을 지시하고, 小久保 京介 (코쿠보 쿄스케)와 연계하여 팀/멤버 선임 진행.'
+  },
+  {
+    id: 'akiyama', name: '秋山 佳弘', nameKr: '아키야마 요시히로', org: 'holdings',
+    tier: 1, role: '사업개발부 · 전략 관계 구축',
+    email: 'Akiyama.Yoshihiro@technopro.com',
+    dept: 'TechnoPro Holdings 事業開発部',
+    counterpart: '채승엽 (Chae) CEO',
+    phone: '대표 03-5410-1010 / 휴대폰 090-9356-2760',
+    office: '六本木ヒルズ森タワー 35F',
+    notes: '전략적 관계 구축 담당. 3/10 미팅 후 PopcornSAR CEO(チェ)에게 직접 연락하여 별도 경영진 미팅을 제안. "경영진의 프레젠테이션 수용도"에 대해 논의하고 "관계 방향성 디스커션"을 요청. CEO 레벨에 직접 접근하는 것으로 보아 Holdings 내 사업개발 의사결정 라인으로 추정.'
+  },
+  {
+    id: 'miyatsuji', name: '宮辻 千笑香', nameKr: '미야츠지 치에카', org: 'holdings',
+    tier: 3, role: '비서 · 코디네이터',
+    email: 'Miyatsuji.Chieka@technopro.com',
+    dept: 'TechnoPro Holdings',
+    counterpart: '전민현 (Jun)',
+    notes: '高瀬 健一郎 (타카세 켄이치로)를 대신하여 미팅 일정 조율, Teams 인비테이션 발송, 방문 시 로비(六本木ヒルズ LL階) 영접 담당. 미팅 요청 시 宮辻 千笑香 (미야츠지 치에카)을 통해 조율하는 것이 일반적 루트.'
+  },
+  {
+    id: 'shimano', name: '嶋野 孝彦', nameKr: '시마노 타카히코', org: 'holdings',
+    tier: 3, role: '지원 · 정보 공유 라인',
+    email: 'Shimano.Takahiko@technopro.com',
+    dept: 'TechnoPro Holdings',
+    counterpart: '-',
+    notes: 'CC로 주요 메일에 포함. 직접적인 발언이나 액션은 메일에서 확인되지 않으나, 정보 공유 대상으로 지속 포함됨.'
+  },
+  {
+    id: 'mochizuki', name: '望月 秀敏', nameKr: '모치즈키 히데토시', org: 'holdings',
+    tier: 3, role: '지원 · 정보 공유 라인',
+    email: 'Mochizuki.Hidetoshi@technopro.com',
+    dept: 'TechnoPro Holdings',
+    counterpart: '-',
+    notes: '嶋野 孝彦 (시마노 타카히코)와 동일하게 CC로 주요 메일에 포함. 정보 공유 라인.'
+  },
+  {
+    id: 'kokubo', name: '小久保 京介', nameKr: '코쿠보 쿄스케', org: 'design',
+    tier: 2, role: '모빌리티統括部 · 실무 총괄',
+    email: 'Kokubo.Kyosuke@technopro.com',
+    dept: 'TechnoPro Design / CP',
+    counterpart: '전민현 (Jun)',
+    notes: 'Honda PJ를 직접 운영하며, PARVIS 도입 시 팀/멤버 선임에서 高瀬 健一郎 (타카세 켄이치로)와 연계. 高瀬 健一郎 (타카세 켄이치로)가 "①は小久保と連携して進めます"라고 언급하여 PARVIS 도입의 실무 파트너.'
+  },
+  {
+    id: 'kitahara', name: '北原 真樹', nameKr: '키타하라 마사키', org: 'design',
+    tier: 2, role: '모빌리티 실무',
+    email: 'Kitahara.Masaki@technopro.com',
+    dept: 'TechnoPro Design / CP',
+    counterpart: '전민현 (Jun)',
+    notes: '小久保 京介 (코쿠보 쿄스케)와 함께 Honda PJ 및 모빌리티 관련 실무 담당. 3/10 AI 전략 미팅 관련 메일에도 CC로 포함.'
+  },
+  {
+    id: 'hoshino', name: '星野 円花', nameKr: '호시노 마도카', org: 'design',
+    tier: 3, role: '실무 지원',
+    email: 'Hoshino.Madoka@technopro.com',
+    dept: 'TechnoPro Design',
+    counterpart: '-',
+    notes: 'Honda PJ 관련 CC에 포함. 실무 지원 역할.'
+  },
+  {
+    id: 'fukugawara', name: '福川原 典子', nameKr: '후쿠가와라 노리코', org: 'design',
+    tier: 3, role: '마케팅',
+    email: 'Fukugawara.Noriko@technopro.com',
+    dept: 'TechnoPro Design 마케팅팀',
+    counterpart: '-',
+    notes: '마케팅 관련 연락처. mp-design@technopro.com 팀 소속.'
+  },
+  {
+    id: 'chae', name: '채승엽 (Chae)', nameKr: 'CEO / Co-founder', org: 'popcorn',
+    tier: 1, role: 'PopcornSAR 대표',
+    email: 'sychae@popcornsar.com',
+    dept: 'PopcornSAR',
+    counterpart: '秋山 佳弘 (아키야마 요시히로)',
+    notes: 'TechnoPro와의 전략적 파트너십 관계에서 CEO 레벨 소통 담당. 秋山 佳弘 (아키야마 요시히로)이 직접 연락하여 별도 경영진 미팅을 제안한 상대.'
+  },
+  {
+    id: 'jun', name: '전민현 (Jun)', nameKr: '메인 담당자', org: 'popcorn',
+    tier: 1, role: 'PopcornSAR 핵심 대응',
+    email: 'mhjun@popcornsar.com',
+    dept: 'PopcornSAR',
+    counterpart: '高瀬 健一郎 (타카세 켄이치로), 齋藤 廣達 (사이토 코타츠), 小久保 京介 (코쿠보 쿄스케), 宮辻 千笑香 (미야츠지 치에카)',
+    notes: 'TechnoPro와의 거의 모든 실무 커뮤니케이션을 총괄. AI 전략 미팅, PARVIS 도입, Honda PJ 모두 메인 담당.'
+  },
+  {
+    id: 'kang', name: '강승주 (Emile)', nameKr: '실무 참석', org: 'popcorn',
+    tier: 2, role: 'PopcornSAR 실무',
+    email: 'sjkang@popcornsar.com',
+    dept: 'PopcornSAR',
+    counterpart: '-',
+    notes: '3/10 AI 전략 미팅에 Jun, Chae와 함께 대면 참석. 3/16 PARVIS 미팅에도 참석 예정.'
+  }
+];
+
+function renderCards() {
+  const holdingsGrid = document.getElementById('holdings-grid');
+  const designGrid = document.getElementById('design-grid');
+  const popcornGrid = document.getElementById('popcorn-grid');
+
+  people.forEach(p => {
+    const card = document.createElement('div');
+    card.className = `person-card ${p.org}`;
+    card.id = `card-${p.id}`;
+    card.onclick = () => showDetail(p.id);
+
+    const tierLabel = p.tier === 1 ? 'TIER 1' : p.tier === 2 ? 'TIER 2' : 'TIER 3';
+    const tierClass = `tier${p.tier}`;
+    const orgLabel = p.org === 'holdings' ? 'Holdings' : p.org === 'design' ? 'Design' : 'PopcornSAR';
+
+    card.innerHTML = `
+      <span class="tier-badge ${tierClass}">${tierLabel}</span>
+      <div class="person-name">${p.name}</div>
+      <div class="person-name-kr">${p.nameKr}</div>
+      <span class="person-org ${p.org}">${orgLabel}</span>
+      <div class="person-role">${p.role}</div>
+    `;
+
+    if (p.org === 'holdings') holdingsGrid.appendChild(card);
+    else if (p.org === 'design') designGrid.appendChild(card);
+    else popcornGrid.appendChild(card);
+  });
+}
+
+function showDetail(id) {
+  const p = people.find(x => x.id === id);
+  if (!p) return;
+
+  // Highlight selected card
+  document.querySelectorAll('.person-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(`card-${id}`).classList.add('selected');
+
+  document.getElementById('detail-name').textContent = p.name;
+  document.getElementById('detail-name-kr').textContent = p.nameKr;
+
+  const grid = document.getElementById('detail-grid');
+  let items = `
+    <div class="detail-item">
+      <div class="detail-label">이메일</div>
+      <div class="detail-value"><a href="mailto:${p.email}">${p.email}</a></div>
+    </div>
+    <div class="detail-item">
+      <div class="detail-label">소속</div>
+      <div class="detail-value">${p.dept}</div>
+    </div>
+    <div class="detail-item">
+      <div class="detail-label">역할</div>
+      <div class="detail-value">${p.role}</div>
+    </div>
+    <div class="detail-item">
+      <div class="detail-label">PopcornSAR 대응</div>
+      <div class="detail-value">${p.counterpart}</div>
+    </div>
+  `;
+  if (p.phone) {
+    items += `<div class="detail-item"><div class="detail-label">연락처</div><div class="detail-value">${p.phone}</div></div>`;
+  }
+  if (p.office) {
+    items += `<div class="detail-item"><div class="detail-label">오피스</div><div class="detail-value">${p.office}</div></div>`;
+  }
+  grid.innerHTML = items;
+
+  if (p.notes) {
+    document.getElementById('detail-notes').style.display = 'block';
+    document.getElementById('detail-notes-text').textContent = p.notes;
+  } else {
+    document.getElementById('detail-notes').style.display = 'none';
+  }
+
+  const panel = document.getElementById('detail-panel');
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeDetail() {
+  document.getElementById('detail-panel').classList.remove('visible');
+  document.querySelectorAll('.person-card').forEach(c => c.classList.remove('selected'));
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  document.getElementById(`tab-${tabId}`).classList.add('active');
+  event.target.classList.add('active');
+}
+
+renderCards();
+</script>
+</body>
+</html>
