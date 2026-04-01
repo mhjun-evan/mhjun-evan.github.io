@@ -1,0 +1,2569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>팝콘사 회사소개서 — 전체</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0d1b3e;
+    --navy2:   #112244;
+    --navy3:   #162a55;
+    --cyan:    #4db8ff;
+    --cyan2:   #7ecfff;
+    --white:   #ffffff;
+    --gray:    #8899bb;
+    --accent:  #2979ff;
+    --green:   #4caf50;
+    --purple:  #7c4dff;
+    --orange:  #ff6d00;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: #0d1b3e;
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ── Slide container ─────────────────────────── */
+  #deck {
+    position: fixed;
+    width: 1280px; height: 720px;
+    top: 0; left: 0;
+    transform-origin: top left;
+  }
+
+  .slide {
+    position: absolute; inset: 0;
+    width: 1280px; height: 720px;
+    background: var(--navy);
+    color: var(--white);
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .45s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ── Navigation UI ───────────────────────────── */
+  #nav {
+    position: absolute;
+    bottom: 10px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 6px; align-items: center;
+    z-index: 100;
+    opacity: 0.35;
+    transition: opacity .2s;
+  }
+  #nav:hover { opacity: 1; }
+  #nav button {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.2);
+    color: rgba(255,255,255,.8); padding: 3px 12px;
+    border-radius: 12px; cursor: pointer;
+    font-family: inherit; font-size: 12px;
+    transition: background .2s;
+  }
+  #nav button:hover { background: rgba(255,255,255,.22); }
+  #counter {
+    position: absolute;
+    bottom: 10px; right: 18px;
+    color: rgba(255,255,255,.4);
+    font-size: 11px; z-index: 100;
+  }
+  #fs-btn {
+    display: none;
+    position: absolute;
+    bottom: 10px; left: 18px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.2);
+    color: #fff; padding: 3px 10px;
+    border-radius: 12px; cursor: pointer;
+    font-size: 11px; z-index: 100;
+  }
+
+  /* ── Common layout helpers ───────────────────── */
+  .slide-header {
+    background: var(--navy2);
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid var(--cyan);
+  }
+  .slide-header h2 {
+    font-size: 20px; font-weight: 700;
+    color: var(--white);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .slide-header h2::before {
+    content: '▣';
+    color: var(--cyan); font-size: 16px;
+  }
+  .logo-badge {
+    font-size: 13px; color: var(--cyan2);
+    font-weight: 700; letter-spacing: .5px;
+  }
+  .content-area {
+    padding: 18px 40px;
+  }
+
+  /* ── SLIDE 1: Cover ──────────────────────────── */
+  #s1 {
+    background: radial-gradient(ellipse at 60% 40%, #0a2060 0%, #040d1f 70%);
+  }
+  #s1 .cover-title {
+    position: absolute;
+    left: 7%; top: 50%; transform: translateY(-50%);
+    font-size: 52px; font-weight: 900;
+    color: var(--white);
+    line-height: 1.2;
+    text-shadow: 0 2px 20px rgba(0,0,0,.6);
+  }
+  #s1 .cover-logo {
+    position: absolute;
+    right: 32px; bottom: 24px;
+    font-size: 16px; font-weight: 700;
+    color: var(--cyan);
+    display: flex; align-items: center; gap: 6px;
+  }
+  #s1 .cover-logo::before {
+    content: '';
+    font-size: 18px;
+  }
+  #s1 .cover-copy {
+    position: absolute;
+    left: 32px; bottom: 24px;
+    font-size: 11px; color: rgba(255,255,255,.4);
+  }
+  /* Car graphic placeholder */
+  #s1 .car-bg {
+    position: absolute;
+    right: 0; top: 0;
+    width: 60%; height: 100%;
+    background: linear-gradient(135deg,
+      transparent 0%,
+      rgba(30,80,180,.25) 30%,
+      rgba(77,184,255,.15) 60%,
+      rgba(255,255,255,.08) 100%);
+    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  #s1 .hud-circle {
+    position: absolute;
+    border: 1.5px solid rgba(77,184,255,.4);
+    border-radius: 50%;
+  }
+
+  /* ── SLIDE 2: Contents ───────────────────────── */
+  #s2 {
+    background: var(--navy);
+  }
+  #s2 .contents-title {
+    font-size: 34px; font-weight: 900;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    padding: 44px 60px 16px;
+    border-bottom: 2px solid rgba(77,184,255,.4);
+    margin: 0 60px;
+  }
+  #s2 .contents-list {
+    padding: 0 60px;
+    margin-top: 10px;
+  }
+  #s2 .contents-item {
+    display: flex; align-items: flex-start;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(77,184,255,.18);
+    gap: 30px;
+  }
+  #s2 .contents-item:last-child { border-bottom: none; }
+  #s2 .c-num {
+    font-size: 38px; font-weight: 900;
+    color: var(--cyan); min-width: 60px;
+    line-height: 1;
+  }
+  #s2 .c-body {}
+  #s2 .c-title {
+    font-size: 20px; font-weight: 700;
+    color: var(--white); margin-bottom: 4px;
+  }
+  #s2 .c-sub {
+    font-size: 13px; color: var(--gray);
+  }
+  #s2 .c-sub span { margin-right: 12px; }
+
+  /* ── SLIDE 3: Section 01 Divider ─────────────── */
+  #s3 {
+    background: linear-gradient(160deg, #0a1a40 0%, #0d1b3e 100%);
+  }
+  #s3 .sec-num {
+    position: absolute;
+    left: 54px; top: 50%;
+    transform: translateY(-70%);
+    font-size: 72px; font-weight: 900;
+    color: var(--cyan);
+    line-height: 1;
+  }
+  #s3 .sec-divider {
+    position: absolute;
+    left: 54px; top: 50%;
+    width: calc(100% - 108px);
+    height: 2px;
+    background: var(--cyan);
+    margin-top: 4px;
+  }
+  #s3 .sec-title {
+    position: absolute;
+    left: 54px; top: 50%;
+    margin-top: 24px;
+    font-size: 40px; font-weight: 900;
+    color: var(--white);
+  }
+  #s3 .sec-sub {
+    position: absolute;
+    left: 54px; top: 50%;
+    margin-top: 78px;
+    font-size: 16px; color: var(--gray);
+  }
+  #s3 .sec-sub span { margin-right: 20px; }
+
+  /* ── SLIDE 4: 회사 개요 ─────────────────────── */
+  #s4 .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 18px 40px;
+  }
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table tr { border-bottom: 1px solid rgba(77,184,255,.2); }
+  .info-table td {
+    padding: 11px 12px;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  .info-table .label {
+    background: #1a3a7a;
+    color: var(--white);
+    font-weight: 700;
+    width: 28%;
+    text-align: center;
+    border-radius: 3px;
+  }
+  .info-table .value {
+    color: var(--white);
+    line-height: 1.5;
+    padding-left: 14px;
+  }
+  .right-box {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .r-item {}
+  .r-label {
+    background: #1a3a7a;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    padding: 7px 10px;
+    border-radius: 3px 3px 0 0;
+  }
+  .r-content {
+    background: rgba(26,58,122,.3);
+    border: 1px solid rgba(77,184,255,.2);
+    border-top: none;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--white);
+    line-height: 1.7;
+    border-radius: 0 0 3px 3px;
+  }
+  .r-content span { display: block; }
+
+  /* ── SLIDE 5: 조직도 ──────────────────────────── */
+  #s5 .org-area {
+    padding: 10px 40px 0;
+    display: flex; flex-direction: column;
+    align-items: center;
+  }
+  .org-legend {
+    display: flex; gap: 20px;
+    justify-content: flex-end;
+    width: 100%; margin-bottom: 8px;
+  }
+  .org-legend span {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; color: var(--white);
+  }
+  .leg-dot {
+    width: 12px; height: 12px;
+    border-radius: 2px;
+  }
+  .org-box {
+    padding: 8px 22px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--white);
+    text-align: center;
+    min-width: 90px;
+  }
+  .org-blue { background: linear-gradient(135deg,#2b6cb0,#3a8ed4); }
+  .org-green { background: linear-gradient(135deg,#2d7a3a,#4caf50); }
+  .org-row {
+    display: flex; gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .org-col { display: flex; flex-direction: column; align-items: center; }
+  .org-line-v {
+    width: 2px; height: 24px;
+    background: rgba(77,184,255,.5);
+    margin: 0 auto;
+  }
+  .org-line-h-wrap {
+    display: flex; align-items: flex-start;
+    position: relative;
+    gap: 0;
+  }
+  .org-tree {
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .org-children-wrap {
+    display: flex; gap: 10px;
+    position: relative;
+  }
+  .org-children-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50px; right: 50px;
+    height: 2px;
+    background: rgba(77,184,255,.5);
+  }
+  .org-child {
+    display: flex; flex-direction: column;
+    align-items: center;
+  }
+  .org-child .org-line-v { height: 20px; }
+  .org-box.sm {
+    font-size: 12px; padding: 7px 10px;
+    min-width: 110px; max-width: 130px;
+    line-height: 1.3;
+  }
+
+  /* ── SLIDE 6: 개발인력 포지션 ─────────────────── */
+  #s6 .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 16px 30px;
+  }
+  .pos-card {
+    border: 1px solid;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .pos-card.purple { border-color: rgba(124,77,255,.6); }
+  .pos-card.orange { border-color: rgba(255,109,0,.6); }
+  .pos-card.blue   { border-color: rgba(41,121,255,.6); }
+  .pos-card.teal   { border-color: rgba(0,188,212,.6); }
+
+  .pos-header {
+    padding: 12px 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pos-card.purple .pos-header { background: rgba(124,77,255,.2); }
+  .pos-card.orange .pos-header { background: rgba(255,109,0,.2); }
+  .pos-card.blue   .pos-header { background: rgba(41,121,255,.2); }
+  .pos-card.teal   .pos-header { background: rgba(0,188,212,.2); }
+
+  .pos-icon { display: none; }
+  .pos-title {
+    font-size: 20px; font-weight: 700; color: var(--white);
+  }
+  .pos-sub { font-size: 15px; color: var(--gray); margin-top: 2px; }
+  .pos-body { padding: 14px 18px; background: rgba(0,0,0,.15); }
+  .pos-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .pos-tag {
+    font-size: 13px; padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .tag-tech { background: rgba(77,184,255,.2); color: var(--cyan2); }
+  .tag-label { color: var(--gray); font-weight: 600; font-size: 13px; margin-right: 4px; }
+  .pos-bullets { list-style: none; padding: 0; }
+  .pos-bullets li {
+    font-size: 14px; color: rgba(255,255,255,.82);
+    padding: 4px 0 4px 14px;
+    position: relative;
+    line-height: 1.55;
+  }
+  .pos-bullets li::before {
+    content: '▪';
+    position: absolute; left: 0;
+    color: var(--cyan); font-size: 9px;
+    top: 3px;
+  }
+
+  /* ── SLIDE 7: 주요 연혁 ───────────────────────── */
+  #s7 .history-intro {
+    background: rgba(26,58,122,.4);
+    border-left: 4px solid var(--cyan);
+    padding: 8px 16px;
+    margin: 0 30px 10px;
+    font-size: 14px;
+    color: var(--white);
+    line-height: 1.5;
+    display: flex; align-items: center; gap: 10px;
+  }
+  #s7 .history-intro .hi-icon { font-size: 16px; }
+  #s7 .timeline-wrap {
+    padding: 0 20px;
+    overflow-x: auto;
+  }
+  .timeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .timeline-table th {
+    background: rgba(26,58,122,.5);
+    color: var(--cyan);
+    padding: 5px 6px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid rgba(77,184,255,.2);
+    white-space: nowrap;
+  }
+  .timeline-table td {
+    border: 1px solid rgba(77,184,255,.12);
+    padding: 6px 6px;
+    color: rgba(255,255,255,.85);
+    vertical-align: top;
+    line-height: 1.35;
+  }
+  .timeline-table .row-label {
+    background: rgba(26,58,122,.4);
+    color: var(--cyan);
+    font-weight: 700;
+    text-align: center;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .tl-item {
+    background: rgba(41,121,255,.15);
+    border-radius: 3px;
+    padding: 4px 5px;
+    margin-bottom: 2px;
+    font-size: 12px;
+    display: block;
+  }
+  .tl-item.red   { background: rgba(255,77,77,.18); }
+  .tl-item.green { background: rgba(76,175,80,.18); }
+  .tl-item.hl    { font-weight: 700; color: #ffd54f; }
+  .timeline-legend {
+    display: flex; gap: 16px;
+    justify-content: flex-end;
+    padding: 4px 20px;
+    font-size: 12.5px;
+  }
+  .timeline-legend span {
+    display: flex; align-items: center; gap: 5px;
+  }
+  .tl-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+  }
+
+
+  /* ═══ Part 2 Style ═══ */
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  :root {
+    --navy:#0d1b3e; --navy2:#112244; --cyan:#4db8ff; --cyan2:#7ecfff;
+    --white:#ffffff; --gray:#8899bb; --green:#4caf50; --yellow:#ffd54f;
+    --orange:#ff6d00;
+  }
+  html,body { width:100%;height:100%;background:#0d1b3e;font-family:'Noto Sans KR',sans-serif;overflow:hidden; }
+
+  #deck { position:fixed;width:1280px;height:720px;top:0;left:0;transform-origin:top left;overflow:hidden; }
+
+  .slide {
+    position:absolute;inset:0;width:1280px;height:720px;
+    background:var(--navy);color:var(--white);overflow:hidden;
+    opacity:0;pointer-events:none;transition:opacity .4s ease;
+  }
+  .slide.active { opacity:1;pointer-events:all; }
+
+  /* Navigation */
+  #nav { position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;align-items:center;z-index:100;opacity:.35;transition:opacity .2s; }
+  #nav:hover { opacity:1; }
+  #nav button { background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:3px 12px;border-radius:12px;cursor:pointer;font-family:inherit;font-size:12px;transition:background .2s; }
+  #nav button:hover { background:rgba(255,255,255,.22); }
+  #counter { position:absolute;bottom:16px;right:22px;color:rgba(255,255,255,.55);font-size:13px;z-index:100; }
+  #fs-btn { display:none;position:absolute;bottom:10px;left:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;padding:3px 10px;border-radius:12px;cursor:pointer;font-size:11px;z-index:100; }
+
+  /* Slide header */
+  .slide-header {
+    background:var(--navy2);padding:13px 36px;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:2px solid var(--cyan);
+  }
+  .slide-header h2 { font-size:19px;font-weight:700;color:var(--white);display:flex;align-items:center;gap:8px; }
+  .slide-header h2::before { content:'▣';color:var(--cyan);font-size:15px; }
+  .logo-badge { font-size:13px;color:var(--cyan2);font-weight:700; }
+
+  /* Section divider */
+  .sec-slide { background:linear-gradient(160deg,#0a1a40 0%,#0d1b3e 100%); }
+  .sec-num { position:absolute;left:54px;top:50%;transform:translateY(-70%);font-size:72px;font-weight:900;color:var(--cyan);line-height:1; }
+  .sec-divider-line { position:absolute;left:54px;top:50%;width:calc(100% - 108px);height:2px;background:var(--cyan);margin-top:4px; }
+  .sec-title { position:absolute;left:54px;top:50%;margin-top:24px;font-size:40px;font-weight:900;color:var(--white); }
+  .sec-sub { position:absolute;left:54px;top:50%;margin-top:78px;font-size:16px;color:var(--gray); }
+  .sec-sub span { margin-right:20px; }
+
+  /* Content box */
+  .content-area { padding:16px 36px; }
+
+  /* Highlight box */
+  .hi-box {
+    background:linear-gradient(90deg,rgba(77,184,255,.22) 0%,rgba(77,184,255,.04) 100%);
+    border-left:4px solid var(--cyan);
+    border-top:1px solid rgba(77,184,255,.3);
+    border-bottom:1px solid rgba(77,184,255,.3);
+    padding:10px 16px;margin-bottom:14px;
+    font-size:15px;font-weight:500;color:var(--cyan2);line-height:1.55;
+    display:flex;align-items:center;gap:10px;
+  }
+
+  /* Project table */
+  .proj-table { width:100%;border-collapse:collapse; }
+  .proj-table th {
+    background:rgba(26,58,122,.6);color:var(--cyan);
+    padding:14px 14px;font-size:15px;border:1px solid rgba(77,184,255,.25);
+  }
+  .proj-table td {
+    border:1px solid rgba(77,184,255,.15);
+    padding:14px 14px;font-size:14px;color:var(--white);
+    vertical-align:middle;line-height:1.45;
+  }
+  .proj-table tr:nth-child(even) td { background:rgba(26,58,122,.15); }
+  .logo-cell { font-weight:700;font-size:14px;color:var(--white); }
+  .logo-cell .sub { font-size:12px;color:var(--gray);display:block; }
+  .platform-badge {
+    background:rgba(41,121,255,.2);border:1px solid rgba(77,184,255,.3);
+    padding:3px 8px;border-radius:10px;font-size:11px;color:var(--cyan2);
+    display:inline-block;
+  }
+
+  /* Two column layout */
+  .two-col { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+
+  /* Section box */
+  .sec-box { border-radius:5px;overflow:hidden;margin-bottom:12px; }
+  .sec-box-header {
+    padding:9px 14px;font-size:14px;font-weight:700;color:var(--white);
+    display:flex;align-items:center;gap:6px;
+  }
+  .sec-box-header.blue  { background:#1a4a8a; }
+  .sec-box-header.green { background:#1a5a28; }
+  .sec-box-body {
+    background:rgba(0,0,0,.2);border:1px solid rgba(77,184,255,.18);
+    border-top:none;padding:10px 14px;
+    font-size:14px;color:rgba(255,255,255,.88);line-height:1.65;
+  }
+  .sec-box-body ul { padding-left:16px; }
+  .sec-box-body ul li { margin-bottom:5px; }
+  .sec-box-body .hl  { font-weight:700;color:var(--cyan2); }
+  .sec-box-body .und { text-decoration:none;font-weight:700;color:var(--cyan2); }
+
+  /* Tag badges */
+  .tag-cyan { color:var(--cyan);font-weight:700; }
+  .tag-yellow { color:var(--yellow);font-weight:700; }
+  .tag-green  { color:var(--green);font-weight:700; }
+
+  /* Sub title row */
+  .sub-title {
+    background:rgba(26,58,122,.5);
+    border-left:3px solid var(--cyan);
+    padding:8px 12px;font-size:14px;font-weight:700;
+    color:var(--white);margin-bottom:8px;border-radius:0 3px 3px 0;
+  }
+
+  /* Flow diagram (Kefico, Mobis) */
+  .flow-row {
+    display:flex;align-items:center;gap:8px;
+    margin:8px 0;
+    font-size:13px;
+  }
+  .flow-box {
+    background:rgba(26,58,122,.5);border:1px solid rgba(77,184,255,.3);
+    padding:7px 12px;border-radius:5px;font-size:13px;
+    color:var(--white);text-align:center;
+  }
+  .flow-arrow { color:var(--cyan);font-size:16px; }
+  .flow-label { font-size:11.5px;color:var(--gray);text-align:center;margin-top:3px; }
+
+  /* Slide 9 (s10) font scale-up */
+  #s17 .sec-box-header { font-size:16px; padding:11px 16px; }
+  #s17 .sec-box-body { font-size:15px; padding:12px 16px; line-height:1.75; }
+  #s17 .sec-box { margin-bottom:12px; }
+
+  /* Slide 8 font scale-up */
+  #s16 .sub-title { font-size:15px; padding:9px 14px; }
+  #s16 .sec-box-header { font-size:15px; padding:10px 14px; }
+  #s16 .sec-box-body { font-size:15px; padding:11px 14px; line-height:1.7; }
+  #s16 .sec-box-body ul li { margin-bottom:7px; }
+  #s16 .two-col { gap:20px; }
+  #s16 .sec-box { margin-bottom:14px; }
+
+  /* Slide 7 font scale-up */
+  #s15 .hi-box { font-size:16px; }
+  #s15 .sub-title { font-size:15px; padding:9px 14px; }
+  #s15 .sec-box-header { font-size:15px; padding:10px 14px; }
+  #s15 .sec-box-body { font-size:15px; padding:11px 14px; line-height:1.7; }
+  #s15 .sec-box-body ul li { margin-bottom:7px; }
+  #s15 .flow-label { font-size:13px; }
+  #s15 .two-col { gap:20px; padding-top:12px; }
+  #s15 .sec-box { margin-bottom:14px; }
+
+  /* Slide 6 font scale-up */
+  #s14 .hi-box { font-size:16px; }
+  #s14 .sub-title { font-size:15px; padding:9px 14px; }
+  #s14 .sec-box-header { font-size:15px; padding:10px 14px; }
+  #s14 .sec-box-body { font-size:15px; padding:11px 14px; line-height:1.7; }
+  #s14 .sec-box-body ul li { margin-bottom:7px; }
+  #s14 .flow-label { font-size:13px; }
+  #s14 .two-col { gap:20px; padding-top:12px; }
+  #s14 .sec-box { margin-bottom:14px; }
+
+  /* Slide 3 font scale-up */
+  #s11 .hi-box { font-size:16px; }
+  #s11 .sub-title { font-size:15px; padding:9px 14px; }
+  #s11 .sec-box-header { font-size:15px; padding:10px 14px; }
+  #s11 .sec-box-body { font-size:15px; padding:11px 14px; line-height:1.7; }
+  #s11 .sec-box-body ul li { margin-bottom:7px; }
+  #s11 .flow-box { font-size:18px; padding:14px 24px; }
+  #s11 .flow-arrow { font-size:28px; }
+  #s11 .flow-label { font-size:14px; margin-top:6px; }
+  #s11 .flow-row { margin:18px 0 12px; gap:20px; }
+  #s11 .two-col { gap:20px; padding-top:14px; }
+  #s11 .sec-box { margin-bottom:14px; }
+
+
+  /* Slide 10 (s11) font scale-up */
+  #s18 .hi-box { font-size:16px; padding:11px 16px; }
+  #s18 .sub-title { font-size:15px; padding:9px 14px; }
+  #s18 .ci-label { font-size:13px; margin-bottom:6px; }
+  #s18 .ci-body { font-size:14px; line-height:1.7; }
+  #s18 .contract-item { padding:10px 14px; }
+  #s18 .rm-period { font-size:14px; }
+  #s18 .rm-body { font-size:14px; line-height:1.7; }
+  #s18 .rm-item { padding:10px 0; }
+
+  /* SL contract */
+  .contract-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+  .contract-value {
+    background:rgba(10,20,50,.7);border:1px solid rgba(77,184,255,.3);
+    border-radius:6px;padding:14px 18px;
+  }
+  .cv-label { font-size:12px;color:var(--gray);letter-spacing:1px;text-transform:uppercase; }
+  .cv-amount { font-size:40px;font-weight:900;color:var(--cyan);margin:6px 0; }
+  .cv-sub { font-size:13px;color:var(--gray); }
+  .cv-deposit { font-size:21px;font-weight:700;color:var(--yellow);margin-top:8px; }
+  .contract-item {
+    background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.18);
+    border-radius:4px;padding:9px 12px;margin-bottom:7px;
+  }
+  .ci-label { font-size:12px;color:var(--cyan);font-weight:700;margin-bottom:5px; }
+  .ci-body { font-size:13px;color:var(--white);line-height:1.6; }
+  .timeline-row {
+    display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:baseline;
+    padding:5px 0;border-bottom:1px solid rgba(77,184,255,.1);
+  }
+  .tl-date { font-size:13px;font-weight:700;color:var(--cyan);white-space:nowrap; }
+  .tl-desc { font-size:13px;color:var(--white); }
+  .tl-desc.hl { color:var(--cyan);font-weight:700; }
+
+  /* roadmap */
+  .rm-item {
+    display:flex;gap:12px;align-items:flex-start;
+    padding:10px 0;border-bottom:1px solid rgba(77,184,255,.12);
+  }
+  .rm-dot {
+    width:14px;height:14px;border-radius:50%;
+    flex-shrink:0;margin-top:4px;
+  }
+  .rm-dot.done  { background:var(--green); }
+  .rm-dot.next  { background:var(--cyan); }
+  .rm-dot.todo  { background:var(--orange); }
+  .rm-dot.plan  { background:var(--gray); }
+  .rm-period { font-size:13px;font-weight:700;color:var(--cyan);white-space:nowrap;min-width:145px; }
+  .rm-body { font-size:13px;color:var(--white);line-height:1.6; }
+  .expand-box {
+    background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);
+    border-radius:5px;padding:12px 16px;
+  }
+  .expand-item {
+    display:flex;align-items:flex-start;gap:8px;
+    padding:5px 0;font-size:13px;color:var(--white);
+  }
+  .expand-icon { font-size:16px; }
+
+  /* Consortium map */
+  .consortium-center {
+    background:rgba(26,58,122,.4);border:2px solid rgba(77,184,255,.4);
+    border-radius:50%;width:120px;height:120px;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;font-size:12px;font-weight:700;color:var(--white);
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  }
+  .mobis-card {
+    background:rgba(26,58,122,.4);border:1px solid rgba(77,184,255,.3);
+    border-radius:5px;padding:12px 14px;
+    font-size:13px;color:var(--white);
+  }
+  .mobis-card-title { font-size:14px;font-weight:700;color:var(--cyan);margin-bottom:7px; }
+  .mobis-card ul { list-style:none; }
+  .mobis-card ul li { padding:4px 0 4px 12px;position:relative; }
+  .mobis-card ul li::before { content:'•';position:absolute;left:0;color:var(--cyan); }
+
+  /* LG ES PoC */
+  .poc-item {
+    background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);
+    border-radius:5px;padding:12px 16px;margin-bottom:10px;
+  }
+  .poc-title { font-size:14.5px;font-weight:700;color:var(--white);margin-bottom:6px; }
+  .poc-title span { color:var(--cyan); }
+  .poc-desc { font-size:13px;color:rgba(255,255,255,.8);line-height:1.6; }
+  .poc-schema {
+    background:rgba(0,0,0,.3);border:1px solid rgba(77,184,255,.2);
+    border-radius:4px;padding:9px 12px;
+    font-size:12.5px;color:rgba(255,255,255,.7);
+    text-align:center;margin-top:8px;
+  }
+
+
+  /* ═══ Part 3 Style ═══ */
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#0d1b3e; --navy2:#112244; --cyan:#4db8ff; --cyan2:#7ecfff;
+    --white:#ffffff; --gray:#8899bb; --green:#4caf50; --yellow:#ffd54f;
+    --orange:#ff6d00; --red:#f44336;
+  }
+  html,body { width:100%;height:100%;background:#0d1b3e;font-family:'Noto Sans KR',sans-serif;overflow:hidden; }
+  #deck { position:fixed;width:1280px;height:720px;top:0;left:0;transform-origin:top left; }
+  .slide {
+    position:absolute;inset:0;width:1280px;height:720px;
+    background:var(--navy);color:var(--white);overflow:hidden;
+    opacity:0;pointer-events:none;transition:opacity .4s ease;
+  }
+  .slide.active { opacity:1;pointer-events:all; }
+
+  #nav { position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;align-items:center;z-index:100;opacity:.35;transition:opacity .2s; }
+  #nav:hover { opacity:1; }
+  #nav button { background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:3px 12px;border-radius:12px;cursor:pointer;font-family:inherit;font-size:12px;transition:background .2s; }
+  #nav button:hover { background:rgba(255,255,255,.22); }
+  #counter { position:absolute;bottom:16px;right:22px;color:rgba(255,255,255,.55);font-size:13px;z-index:100; }
+  #fs-btn { display:none;position:absolute;bottom:10px;left:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;padding:3px 10px;border-radius:12px;cursor:pointer;font-size:11px;z-index:100; }
+
+  .slide-header { background:var(--navy2);padding:13px 36px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--cyan); }
+  .slide-header h2 { font-size:19px;font-weight:700;color:var(--white);display:flex;align-items:center;gap:8px; }
+  .slide-header h2::before { content:'▣';color:var(--cyan);font-size:14px; }
+  .logo-badge { font-size:13px;color:var(--cyan2);font-weight:700; }
+
+  .sec-slide { background:linear-gradient(160deg,#0a1a40 0%,#0d1b3e 100%); }
+  .sec-num { position:absolute;left:54px;top:50%;transform:translateY(-70%);font-size:72px;font-weight:900;color:var(--cyan); }
+  .sec-divider-line { position:absolute;left:54px;top:50%;width:calc(100% - 108px);height:2px;background:var(--cyan);margin-top:4px; }
+  .sec-title { position:absolute;left:54px;top:50%;margin-top:24px;font-size:40px;font-weight:900;color:var(--white); }
+  .sec-sub { position:absolute;left:54px;top:50%;margin-top:78px;font-size:16px;color:var(--gray); }
+  .sec-sub span { margin-right:20px; }
+
+  .content-area { padding:14px 36px; }
+  .two-col { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+  .hi-box { background:rgba(26,58,122,.4);border-left:4px solid var(--cyan);padding:10px 14px;margin-bottom:10px;font-size:14px;color:var(--white);line-height:1.5;display:flex;align-items:flex-start;gap:8px; }
+
+  /* Info box */
+  .info-box { background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;padding:10px 14px;margin-bottom:8px; }
+  .info-box-title { font-size:14px;font-weight:700;color:var(--cyan);margin-bottom:5px; }
+  .info-box ul { list-style:none;padding:0; }
+  .info-box ul li { font-size:13px;color:var(--white);padding:2px 0 2px 10px;position:relative;line-height:1.45; }
+  .info-box ul li::before { content:'•';position:absolute;left:0;color:var(--cyan); }
+  .hl { font-weight:700; }
+  .und { text-decoration:underline;font-weight:700; }
+  .tag-cyan { color:var(--cyan);font-weight:700; }
+  .tag-yellow { color:var(--yellow);font-weight:700; }
+  .tag-green { color:var(--green);font-weight:700; }
+  .tag-red { color:var(--red);font-weight:700; }
+
+  /* Partner logo grid */
+  .partner-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:5px; }
+  .partner-item {
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+    border-radius:4px;padding:5px 6px;text-align:center;
+    font-size:12px;color:var(--white);font-weight:600;
+  }
+  .partner-item.highlight { border-color:var(--cyan);background:rgba(77,184,255,.15);color:var(--cyan); }
+
+  /* Section header bar */
+  .sec-bar { padding:8px 10px;border-radius:4px 4px 0 0;font-size:14px;font-weight:700;color:var(--white); }
+  .sec-bar.blue  { background:#1a4a8a; }
+  .sec-bar.green { background:#1a5a28; }
+  .sec-bar.yellow{ background:#5a4000; }
+  .sec-content { background:rgba(0,0,0,.2);border:1px solid rgba(77,184,255,.18);border-top:none;padding:10px 12px;border-radius:0 0 4px 4px;font-size:13px;color:rgba(255,255,255,.88);line-height:1.5; }
+
+  /* Government project card */
+  .gov-card { background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.2);border-radius:5px;overflow:hidden;margin-bottom:8px; }
+  .gov-card-header { background:rgba(26,58,122,.6);padding:8px 12px;font-size:14px;font-weight:700;color:var(--cyan); }
+  .gov-card-body { padding:10px 12px;font-size:13px;color:var(--white);line-height:1.5; }
+
+  /* SDVerse products grid */
+  .product-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:6px; }
+  .product-item { background:rgba(255,255,255,.05);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:6px 8px;font-size:12px;color:var(--white);line-height:1.3; }
+  .product-item .p-title { font-weight:700;color:var(--cyan2);margin-bottom:2px; }
+
+  /* National standard logos */
+  .nat-logos { display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center; }
+  .nat-logo { background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:4px;padding:4px 8px;font-size:12px;color:var(--white);font-weight:600; }
+  .nat-logo.hl { border-color:var(--cyan);background:rgba(77,184,255,.15);color:var(--cyan); }
+
+  /* SDV API diagram */
+  .api-diagram { background:rgba(0,0,0,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;padding:10px; }
+  .api-box { background:rgba(26,58,122,.5);border:1px solid rgba(77,184,255,.3);border-radius:4px;padding:8px 10px;font-size:13px;color:var(--white); }
+
+  /* Cyber security diagram */
+  .cyber-legend { display:flex;gap:10px;flex-wrap:wrap;font-size:12px; }
+  .cyber-legend span { display:flex;align-items:center;gap:4px; }
+  .cyber-dot { width:10px;height:10px;border-radius:2px; }
+
+  /* OSDVI grid */
+  .osdvi-section { background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.15);border-radius:4px;padding:8px; }
+  .osdvi-section-title { font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:5px;border-bottom:1px solid rgba(77,184,255,.2);padding-bottom:3px; }
+  .osdvi-logos { display:flex;flex-wrap:wrap;gap:4px; }
+  .osdvi-logo { background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:3px;padding:3px 6px;font-size:11.5px;color:var(--white); }
+  .osdvi-logo.popcorn { border-color:var(--cyan);background:rgba(77,184,255,.2);color:var(--cyan);font-weight:700; }
+
+  /* Closing slide */
+  .closing-slide { background:radial-gradient(ellipse at 60% 40%,#0a2060 0%,#040d1f 70%); }
+  .closing-title { position:absolute;left:7%;top:50%;transform:translateY(-50%);font-size:52px;font-weight:900;color:var(--white); }
+
+  /* OSS project boxes */
+  .oss-box { background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:8px 10px; }
+  .oss-box-title { font-size:13px;font-weight:700;color:var(--yellow);margin-bottom:5px; }
+  .oss-item { display:flex;gap:5px;align-items:flex-start;padding:2px 0;font-size:12.5px;color:rgba(255,255,255,.85); }
+  .oss-num { background:var(--cyan);color:#000;border-radius:2px;padding:0 4px;font-weight:700;font-size:11px;flex-shrink:0;margin-top:2px; }
+</style>
+</head>
+<body>
+<div id="deck">
+
+  <!-- ══ SLIDE 1: Cover ══════════════════════════ -->
+  <!-- ══ SLIDE 2: Contents ═══════════════════════ -->
+  <!-- ══ SLIDE 3: Section 01 Divider ════════════ -->
+  <!-- ══ SLIDE 4: 회사 개요 ══════════════════════ -->
+  <!-- ══ SLIDE 5: 조직도 ═════════════════════════ -->
+  <!-- ══ SLIDE 6: 개발인력 포지션 ════════════════ -->
+  <!-- ══ SLIDE 7: 주요 연혁 ═════════════════════ -->
+  <!-- ── SLIDE 8: Product Portfolio ────────────── -->
+  <!-- Navigation (inside deck → scales with slides) -->
+  <section class="slide active" id="s1">
+<div class="car-bg"></div>
+<!-- HUD circles -->
+<div class="hud-circle" style="width:160px;height:160px;right:360px;top:300px;opacity:.5;"></div>
+<div class="hud-circle" style="width:80px;height:80px;right:400px;top:340px;opacity:.4;"></div>
+<div class="hud-circle" style="width:220px;height:220px;right:220px;bottom:60px;opacity:.3;"></div>
+<div class="cover-title">팝콘사 회사소개서</div>
+<div class="cover-copy">Copyright © 2025 POPCORNSAR Co · Ltd All Rights Reserved</div>
+<div class="cover-logo">PopcornSAR</div>
+</section>
+<section class="slide" id="s2">
+<div class="contents-title">CONTENTS</div>
+<div class="contents-list">
+<div class="contents-item">
+<div class="c-num">01</div>
+<div class="c-body">
+<div class="c-title">회사 소개</div>
+<div class="c-sub">
+<span>Company Overview</span>
+<span>·</span>
+<span>Organization</span>
+<span>·</span>
+<span>History</span>
+<span>·</span>
+<span>Product Overview</span>
+</div>
+</div>
+</div>
+<div class="contents-item">
+<div class="c-num">02</div>
+<div class="c-body">
+<div class="c-title">프로젝트 및 레퍼런스</div>
+<div class="c-sub">
+<span>Project History</span>
+<span>·</span>
+<span>Customer Cases</span>
+</div>
+</div>
+</div>
+<div class="contents-item">
+<div class="c-num">03</div>
+<div class="c-body">
+<div class="c-title">글로벌 컨소시엄 참여 현황</div>
+<div class="c-sub">
+<span>SDV Consortium</span>
+<span>·</span>
+<span>SDVerse</span>
+<span>·</span>
+<span>OSDVI</span>
+<span>·</span>
+<span>Government Projects</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s3">
+<div class="sec-num">01</div>
+<div class="sec-divider"></div>
+<div class="sec-title">회사 소개</div>
+<div class="sec-sub">
+<span>Company Overview</span>
+<span>·</span>
+<span>Organization</span>
+<span>·</span>
+<span>History</span>
+</div>
+</section>
+<section class="slide" id="s4">
+<div class="slide-header">
+<h2>회사 개요</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="two-col">
+<!-- Left: basic info -->
+<div>
+<table class="info-table">
+<tr>
+<td class="label">회 사 명</td>
+<td class="value">주식회사 팝콘사 (POPCORN System Architecture)</td>
+</tr>
+<tr>
+<td class="label">설 립 일</td>
+<td class="value">2014년 12월 23일</td>
+</tr>
+<tr>
+<td class="label">임직원수</td>
+<td class="value">23명 (2026년 2월 기준)</td>
+</tr>
+<tr>
+<td class="label">사업분야</td>
+<td class="value">SDV Platform Vendor</td>
+</tr>
+<tr>
+<td class="label">홈페이지</td>
+<td class="value">www.autosar.io</td>
+</tr>
+<tr>
+<td class="label">주 소</td>
+<td class="value">
+              한국 : 서울특별시 강남구 테헤란로 78길 16, 노벨빌딩 2층<br/>
+              일본 : 아이치현 나고야시 나카구 사카에, Gsakae Bid 3F
+            </td>
+</tr>
+</table>
+<!-- Key Figures -->
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px;">
+<div style="background:linear-gradient(135deg,rgba(41,121,255,.2),rgba(77,184,255,.1));border:1px solid rgba(77,184,255,.3);border-radius:6px;padding:10px 12px;text-align:center;">
+<div style="font-size:24px;font-weight:900;color:var(--cyan);line-height:1.2;">81<span style="font-size:14px;font-weight:600;">억원</span></div>
+<div style="font-size:11px;color:var(--gray);margin-top:2px;">누적 투자유치</div>
+</div>
+<div style="background:linear-gradient(135deg,rgba(41,121,255,.2),rgba(77,184,255,.1));border:1px solid rgba(77,184,255,.3);border-radius:6px;padding:10px 12px;text-align:center;">
+<div style="font-size:24px;font-weight:900;color:var(--cyan);line-height:1.2;">408<span style="font-size:14px;font-weight:600;">명</span></div>
+<div style="font-size:11px;color:var(--gray);margin-top:2px;">LG전자 AUTOSAR 교육 단독</div>
+</div>
+<div style="background:linear-gradient(135deg,rgba(41,121,255,.2),rgba(77,184,255,.1));border:1px solid rgba(77,184,255,.3);border-radius:6px;padding:10px 12px;text-align:center;">
+<div style="font-size:24px;font-weight:900;color:var(--cyan);line-height:1.2;">10<span style="font-size:14px;font-weight:600;">년</span></div>
+<div style="font-size:11px;color:var(--gray);margin-top:2px;">AUTOSAR 표준화 활동 (2016~)</div>
+</div>
+</div>
+<div style="margin-top:8px;background:linear-gradient(90deg,rgba(41,121,255,.18),rgba(77,184,255,.1));border:1px solid rgba(77,184,255,.35);border-radius:6px;padding:9px 16px;display:flex;align-items:center;justify-content:space-between;">
+<div style="font-size:13px;font-weight:900;color:var(--cyan);">국가 SDV 표준 제정 참여사 선정</div>
+<div style="font-size:11px;color:var(--gray);">산업통상자원부 · 2025.08</div>
+</div>
+<div style="margin-top:8px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:6px;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;">
+<div style="font-size:12px;font-weight:700;color:#ffd54f;">AUTOSAR Development Partner</div>
+<div style="font-size:11px;color:var(--gray);">국내 중소기업 최초 승격</div>
+</div>
+</div>
+<!-- Right: customers & status -->
+<div class="right-box">
+<div class="r-item">
+<div class="r-label">주요고객</div>
+<div class="r-content" style="padding:8px 10px;">
+<div style="display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;align-items:baseline;gap:8px;">
+<span style="background:#1a3d8a;color:var(--cyan);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;">한국</span>
+<span style="font-size:12px;">현대자동차, 현대모비스, 현대케피코, LG전자, LG 에너지솔루션, SL 등</span>
+</div>
+<div style="display:flex;align-items:baseline;gap:8px;">
+<span style="background:rgba(180,0,0,.3);color:#ff8a80;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;">일본</span>
+<span style="font-size:12px;">Toyota, Mazda, Denso, AISIN, Tokai, Woven Alpha</span>
+</div>
+<div style="display:flex;gap:12px;">
+<div style="display:flex;align-items:baseline;gap:8px;">
+<span style="background:rgba(40,40,100,.5);color:#b0bec5;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;">독일</span>
+<span style="font-size:12px;">AVL</span>
+</div>
+<div style="display:flex;align-items:baseline;gap:8px;">
+<span style="background:rgba(180,0,0,.25);color:#ef9a9a;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;">중국</span>
+<span style="font-size:12px;">Huawei</span>
+</div>
+</div>
+<div style="display:flex;align-items:baseline;gap:8px;">
+<span style="background:rgba(77,184,255,.2);color:var(--cyan);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;">대학</span>
+<span style="font-size:12px;">연세대, 한양대, 국민대, 충북대, 인천대, 한라대 등</span>
+</div>
+</div>
+</div>
+</div>
+<div class="r-item">
+<div class="r-label">글로벌 SDV 컨소시엄</div>
+<div class="r-content" style="padding:8px 10px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+<div style="background:rgba(26,58,122,.5);border:1px solid rgba(77,184,255,.3);border-radius:5px;padding:7px 10px;">
+<div style="font-size:10px;font-weight:700;color:var(--cyan);margin-bottom:3px;">한국</div>
+<div style="font-size:12px;color:var(--white);">현대모비스, K-SDV</div>
+</div>
+<div style="background:rgba(150,20,20,.25);border:1px solid rgba(255,120,120,.25);border-radius:5px;padding:7px 10px;">
+<div style="font-size:10px;font-weight:700;color:#ff8a80;margin-bottom:3px;">일본</div>
+<div style="font-size:12px;color:var(--white);">Open SDV Initiative</div>
+</div>
+<div style="background:rgba(20,40,120,.4);border:1px solid rgba(100,150,255,.25);border-radius:5px;padding:7px 10px;">
+<div style="font-size:10px;font-weight:700;color:#90caf9;margin-bottom:3px;">미국</div>
+<div style="font-size:12px;color:var(--white);">SDVerse</div>
+</div>
+<div style="background:rgba(0,100,70,.25);border:1px solid rgba(80,200,140,.25);border-radius:5px;padding:7px 10px;">
+<div style="font-size:10px;font-weight:700;color:#80cbc4;margin-bottom:3px;">글로벌</div>
+<div style="font-size:12px;color:var(--white);">digital.auto</div>
+</div>
+</div>
+</div>
+</div>
+<div class="r-item">
+<div class="r-label">주요현황</div>
+<div class="r-content">
+<span>• AUTOSAR 제품 해외 수출 (일본, 독일, 중국)</span>
+<span>• 주요 Tier1 대상으로 당사 AP도구 기반 PoC 프로젝트 수행</span>
+<span>• AUTOSAR 협회의 공식 Contribution Tool 단독 제공 (R19-11/R20-11)</span>
+<span>• 특허 : 등록 2건(일본 1, 국내 1), 출원 3건(PCT 1, 국내 2)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s5">
+<div class="slide-header">
+<h2>조직도</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<!-- Legend -->
+<div style="position:absolute;top:66px;right:40px;display:flex;gap:22px;align-items:center;font-size:13px;color:#fff;z-index:2;">
+<span style="display:flex;align-items:center;gap:7px;">
+<span style="width:16px;height:16px;border-radius:3px;background:linear-gradient(135deg,#2563b0,#3a8ed4);display:inline-block;"></span>SW 개발자
+      </span>
+<span style="display:flex;align-items:center;gap:7px;">
+<span style="width:16px;height:16px;border-radius:3px;background:linear-gradient(135deg,#1e6b2f,#4caf50);display:inline-block;"></span>비개발자
+      </span>
+</div>
+<!-- SVG connector lines (absolute, covers full slide) -->
+<!-- CEO center=640 | CTO center=360 | GM center=920 (각 ±280, 대칭) -->
+<!-- CTO children centers: 120, 280, 440, 600 | GM children centers: 815, 1025 -->
+<svg style="position:absolute;top:0;left:0;width:1280px;height:720px;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+<!-- CEO bottom → junction -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="640" x2="640" y1="196" y2="248"></line>
+<!-- Horizontal: CTO center ↔ GM center -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="360" x2="920" y1="248" y2="248"></line>
+<!-- Down to CTO top -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="360" x2="360" y1="248" y2="278"></line>
+<!-- Down to GM top -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="920" x2="920" y1="248" y2="278"></line>
+<!-- CTO bottom → children junction -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="360" x2="360" y1="378" y2="438"></line>
+<!-- H-bar for CTO children -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="120" x2="600" y1="438" y2="438"></line>
+<!-- Down to each CTO child -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="120" x2="120" y1="438" y2="468"></line>
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="280" x2="280" y1="438" y2="468"></line>
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="440" x2="440" y1="438" y2="468"></line>
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="600" x2="600" y1="438" y2="468"></line>
+<!-- GM bottom → children junction -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="920" x2="920" y1="378" y2="438"></line>
+<!-- H-bar for GM children -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="815" x2="1025" y1="438" y2="438"></line>
+<!-- Down to each GM child -->
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="815" x2="815" y1="438" y2="468"></line>
+<line stroke="rgba(77,184,255,.75)" stroke-width="2.5" x1="1025" x2="1025" y1="438" y2="468"></line>
+</svg>
+<!-- ── Boxes (absolutely positioned, pixel-perfect) ── -->
+<!-- CEO: center x=640, left=490, w=300, h=110, top=86 -->
+<div style="position:absolute;top:86px;left:490px;width:300px;height:110px;
+        background:linear-gradient(135deg,#2563b0,#3a8ed4);border-radius:12px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:36px;font-weight:900;color:#fff;
+        box-shadow:0 6px 24px rgba(0,0,0,.35);letter-spacing:2px;">CEO</div>
+<!-- CTO: center x=360, left=260, w=200, h=100, top=278 -->
+<div style="position:absolute;top:278px;left:260px;width:200px;height:100px;
+        background:linear-gradient(135deg,#2563b0,#3a8ed4);border-radius:10px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:28px;font-weight:900;color:#fff;
+        box-shadow:0 4px 18px rgba(0,0,0,.3);">CTO</div>
+<!-- GM: center x=920, left=820, w=200, h=100, top=278 -->
+<div style="position:absolute;top:278px;left:820px;width:200px;height:100px;
+        background:linear-gradient(135deg,#1e6b2f,#4caf50);border-radius:10px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:28px;font-weight:900;color:#fff;
+        box-shadow:0 4px 18px rgba(0,0,0,.3);">GM</div>
+<!-- CTO children (top=468, h=90, w=140) -->
+<!-- Tooling: center x=120, left=50 -->
+<div style="position:absolute;top:468px;left:50px;width:140px;height:90px;
+        background:linear-gradient(135deg,#2563b0,#3a8ed4);border-radius:8px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:15px;font-weight:700;color:#fff;text-align:center;line-height:1.5;
+        box-shadow:0 3px 14px rgba(0,0,0,.25);">Automotive<br/>Tooling팀</div>
+<!-- Platform: center x=280, left=210 -->
+<div style="position:absolute;top:468px;left:210px;width:140px;height:90px;
+        background:linear-gradient(135deg,#2563b0,#3a8ed4);border-radius:8px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:15px;font-weight:700;color:#fff;text-align:center;line-height:1.5;
+        box-shadow:0 3px 14px rgba(0,0,0,.25);">Automotive<br/>Platform팀</div>
+<!-- AI: center x=440, left=370 -->
+<div style="position:absolute;top:468px;left:370px;width:140px;height:90px;
+        background:linear-gradient(135deg,#2563b0,#3a8ed4);border-radius:8px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:15px;font-weight:700;color:#fff;text-align:center;line-height:1.5;
+        box-shadow:0 3px 14px rgba(0,0,0,.25);">Automotive<br/>AI 팀</div>
+<!-- PM: center x=600, left=530 -->
+<div style="position:absolute;top:468px;left:530px;width:140px;height:90px;
+        background:linear-gradient(135deg,#2563b0,#3a8ed4);border-radius:8px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:15px;font-weight:700;color:#fff;text-align:center;line-height:1.5;
+        box-shadow:0 3px 14px rgba(0,0,0,.25);">Project<br/>Management 팀</div>
+<!-- GM children (top=468, h=90, w=150) -->
+<!-- 세일즈: center x=815, left=740 -->
+<div style="position:absolute;top:468px;left:740px;width:150px;height:90px;
+        background:linear-gradient(135deg,#1e6b2f,#4caf50);border-radius:8px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:18px;font-weight:700;color:#fff;
+        box-shadow:0 3px 14px rgba(0,0,0,.25);">세일즈</div>
+<!-- 경영지원: center x=1025, left=950 -->
+<div style="position:absolute;top:468px;left:950px;width:150px;height:90px;
+        background:linear-gradient(135deg,#1e6b2f,#4caf50);border-radius:8px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:18px;font-weight:700;color:#fff;
+        box-shadow:0 3px 14px rgba(0,0,0,.25);">경영지원</div>
+</section>
+<section class="slide" id="s6">
+<div class="slide-header">
+<h2>주요 제품 카테고리 별 개발인력 포지션 현황</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="grid-4">
+<!-- AUTOSAR 아키텍처 -->
+<div class="pos-card purple">
+<div class="pos-header">
+<div>
+<div class="pos-title">AUTOSAR 아키텍처</div>
+<div class="pos-sub">차세대 E/E 아키텍처 · AP/CP</div>
+</div>
+</div>
+<div class="pos-body">
+<div class="pos-tags">
+<span class="tag-label">Tech</span>
+<span class="pos-tag tag-tech">AUTOSAR</span>
+</div>
+<div style="font-size:14px;color:var(--gray);margin-bottom:6px;">
+<span class="tag-label">구성</span> 대표 + CTO · AUTOSAR 표준 그룹 직접 대응
+          </div>
+<ul class="pos-bullets">
+<li>차세대 E/E Architecture 설계 및 표준 전략 수립</li>
+<li>AP/CP 플랫폼 표준화 · 25개 표준 그룹 대응</li>
+<li>AUTOSAR 신규 표준 분석 및 로드맵 관리</li>
+</ul>
+</div>
+</div>
+<!-- Automotive Tooling -->
+<div class="pos-card orange">
+<div class="pos-header">
+<div>
+<div class="pos-title">Automotive Tooling</div>
+<div class="pos-sub">CP/AP 설계도구 개발</div>
+</div>
+</div>
+<div class="pos-body">
+<div class="pos-tags">
+<span class="tag-label">Tech</span>
+<span class="pos-tag tag-tech">Framework</span>
+<span class="pos-tag tag-tech">Java</span>
+<span class="pos-tag tag-tech">AUTOSAR</span>
+</div>
+<div style="font-size:14px;color:var(--gray);margin-bottom:6px;">
+<span class="tag-label">구성</span> AUTOSAR 설계도구 자체 개발
+          </div>
+<ul class="pos-bullets">
+<li>AUTOSAR Design &amp; Configuration Tool 개발</li>
+<li>Eclipse RCP/RAP · EMF(Artop) · GEF/ELK</li>
+<li>Code Gen(Xtend) · DSL(Xtext) · 문서 생성기</li>
+</ul>
+</div>
+</div>
+<!-- Automotive Platform -->
+<div class="pos-card blue">
+<div class="pos-header">
+<div>
+<div class="pos-title">Automotive Platform (CP/AP)</div>
+<div class="pos-sub">AP Stack · IDE · Virtual ECU · Application</div>
+</div>
+</div>
+<div class="pos-body">
+<div class="pos-tags">
+<span class="tag-label">Tech</span>
+<span class="pos-tag tag-tech">POSIX</span>
+<span class="pos-tag tag-tech">C/C++</span>
+<span class="pos-tag tag-tech">Python</span>
+<span class="pos-tag tag-tech">Embedded</span>
+</div>
+<div style="font-size:14px;color:var(--gray);margin-bottom:6px;">
+<span class="tag-label">구성</span> Foundation + Application · CP/AP Full Stack
+          </div>
+<ul class="pos-bullets">
+<li>Foundation: ara::com/exec/diag/log/per/phm/crypto 등</li>
+<li>Application: S2S · OTA · Container · MBD · AI App</li>
+<li>PACON IDE · Diagnostic Client · SOME/IP Library</li>
+<li>MCAL · ECU Abstraction Layer · RTE 개발</li>
+<li>CAN/LIN/FlexRay 통신 스택 · UDS Diagnostics</li>
+</ul>
+</div>
+</div>
+<!-- Automotive AI -->
+<div class="pos-card teal">
+<div class="pos-header">
+<div>
+<div class="pos-title">Automotive AI</div>
+<div class="pos-sub">AI Agent · PARVIS · V-Model Automation</div>
+</div>
+</div>
+<div class="pos-body">
+<div class="pos-tags">
+<span class="tag-label">Tech</span>
+<span class="pos-tag tag-tech">Python</span>
+<span class="pos-tag tag-tech">LLM</span>
+<span class="pos-tag tag-tech">RAG</span>
+<span class="pos-tag tag-tech">AWS</span>
+</div>
+<div style="font-size:14px;color:var(--gray);margin-bottom:6px;">
+<span class="tag-label">구성</span> V-Model 산출물 생산성 향상 · TC 커버리지 달성도 향상 대응
+          </div>
+<ul class="pos-bullets">
+<li>ASPICE V-Model 전 과정 AI 자동화 (Spec · Coder · Verify)</li>
+<li>사양서 분석 · 테스트케이스 자동 생성 · MISRA-C 코드 검사</li>
+<li>RAG 기반 Automotive 문서 분석 · LLM Agent/Skill Workflow</li>
+<li>AWS 인프라 구축 · Local LLM 서빙 (vLLM / SGLang)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s7">
+<div class="slide-header">
+<h2>주요 연혁</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+
+<!-- ── TOP: Horizontal Milestone Timeline ── -->
+<div style="position:relative;width:1220px;margin:28px auto 0;padding:0 10px;">
+<div style="position:absolute;top:38px;left:50px;right:50px;height:3px;background:linear-gradient(90deg,rgba(77,184,255,.15),rgba(77,184,255,.6),rgba(77,184,255,.15));border-radius:2px;"></div>
+<div style="display:flex;justify-content:space-between;position:relative;padding:0 14px;">
+
+<div style="display:flex;flex-direction:column;align-items:center;width:115px;">
+<div style="background:var(--cyan);color:var(--navy);font-size:13px;font-weight:900;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(77,184,255,.35);">2014</div>
+<div style="width:2px;height:10px;background:var(--cyan);margin:1px 0;"></div>
+<div style="width:12px;height:12px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px rgba(77,184,255,.5);"></div>
+<div style="margin-top:5px;text-align:center;font-size:12px;font-weight:700;color:#fff;">팝콘사 설립</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:115px;">
+<div style="background:rgba(76,175,80,.85);color:#fff;font-size:13px;font-weight:900;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(76,175,80,.3);">2017</div>
+<div style="width:2px;height:10px;background:rgba(76,175,80,.6);margin:1px 0;"></div>
+<div style="width:12px;height:12px;background:rgba(76,175,80,.85);border-radius:50%;box-shadow:0 0 8px rgba(76,175,80,.4);"></div>
+<div style="margin-top:5px;text-align:center;font-size:12px;font-weight:700;color:#fff;">TIPS 선정</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:115px;">
+<div style="background:rgba(255,77,77,.8);color:#fff;font-size:13px;font-weight:900;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(255,77,77,.25);">2018</div>
+<div style="width:2px;height:10px;background:rgba(255,77,77,.5);margin:1px 0;"></div>
+<div style="width:12px;height:12px;background:rgba(255,77,77,.8);border-radius:50%;box-shadow:0 0 8px rgba(255,77,77,.3);"></div>
+<div style="margin-top:5px;text-align:center;font-size:12px;font-weight:700;color:#fff;">DENSO 수출</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:115px;">
+<div style="background:var(--cyan);color:var(--navy);font-size:13px;font-weight:900;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(77,184,255,.35);">2019</div>
+<div style="width:2px;height:10px;background:var(--cyan);margin:1px 0;"></div>
+<div style="width:12px;height:12px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px rgba(77,184,255,.5);"></div>
+<div style="margin-top:5px;text-align:center;font-size:12px;font-weight:700;color:#fff;">일본법인 설립</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:115px;">
+<div style="background:rgba(124,77,255,.8);color:#fff;font-size:13px;font-weight:900;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(124,77,255,.25);">2020</div>
+<div style="width:2px;height:10px;background:rgba(124,77,255,.5);margin:1px 0;"></div>
+<div style="width:12px;height:12px;background:rgba(124,77,255,.8);border-radius:50%;box-shadow:0 0 8px rgba(124,77,255,.3);"></div>
+<div style="margin-top:5px;text-align:center;font-size:12px;font-weight:700;color:#fff;">BIG3 유망기업</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:115px;">
+<div style="background:rgba(76,175,80,.85);color:#fff;font-size:13px;font-weight:900;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(76,175,80,.3);">2023</div>
+<div style="width:2px;height:10px;background:rgba(76,175,80,.6);margin:1px 0;"></div>
+<div style="width:12px;height:12px;background:rgba(76,175,80,.85);border-radius:50%;box-shadow:0 0 8px rgba(76,175,80,.4);"></div>
+<div style="margin-top:5px;text-align:center;font-size:12px;font-weight:700;color:#fff;">시리즈A 50억</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:115px;">
+<div style="background:var(--accent);color:#fff;font-size:13px;font-weight:900;padding:4px 12px;border-radius:6px;box-shadow:0 2px 8px rgba(41,121,255,.3);">2024</div>
+<div style="width:2px;height:10px;background:rgba(41,121,255,.5);margin:1px 0;"></div>
+<div style="width:12px;height:12px;background:var(--accent);border-radius:50%;box-shadow:0 0 8px rgba(41,121,255,.35);"></div>
+<div style="margin-top:5px;text-align:center;font-size:12px;font-weight:700;color:#fff;">Cloud AUTOSAR</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:120px;">
+<div style="background:linear-gradient(135deg,#ffd54f,#ff6d00);color:#0d1b3e;font-size:13px;font-weight:900;padding:4px 12px;border-radius:6px;box-shadow:0 2px 12px rgba(255,109,0,.35);">2025</div>
+<div style="width:2px;height:10px;background:#ffd54f;margin:1px 0;"></div>
+<div style="width:14px;height:14px;background:linear-gradient(135deg,#ffd54f,#ff6d00);border-radius:50%;box-shadow:0 0 12px rgba(255,213,79,.5);"></div>
+<div style="margin-top:5px;text-align:center;font-size:13px;font-weight:900;color:#ffd54f;">국가 SDV 표준</div>
+</div>
+
+</div>
+</div>
+
+<!-- ── Thin separator ── -->
+<div style="width:1200px;height:1px;background:linear-gradient(90deg,transparent,rgba(77,184,255,.25),transparent);margin:8px auto 0;"></div>
+
+<!-- ── BOTTOM: Detail cards aligned under each year ── -->
+<div style="display:flex;justify-content:space-between;padding:4px 24px 48px;gap:10px;box-sizing:border-box;">
+
+<!-- 2014-2015 -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:stretch;gap:0;">
+<div style="background:rgba(77,184,255,.12);border:1px solid rgba(77,184,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;">설립</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">팝콘사 설립 (2014.12)</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(41,121,255,.12);border:1px solid rgba(41,121,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#7eb8ff;margin-bottom:4px;">제품</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">AUTOSAR Partner 가입 및 Vando ID 획득</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#81c784;margin-bottom:4px;">과제</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">재창업 과제</div>
+</div>
+</div>
+
+<!-- 2016-2017 -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:stretch;gap:0;">
+<div style="background:rgba(77,184,255,.12);border:1px solid rgba(77,184,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;">성장</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">TIPS 선정 · 퍼스트펭귄형 창업기업</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(77,184,255,.12);border:1px solid rgba(77,184,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;">성장</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">Dev Partner 승격 (국내 중소 최초)</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(255,152,0,.12);border:1px solid rgba(255,152,0,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#ffb74d;margin-bottom:4px;">교육</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">LG전자 AUTOSAR 교육 (408명)</div>
+</div>
+</div>
+
+<!-- 2018 -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:stretch;gap:0;">
+<div style="background:rgba(255,77,77,.12);border:1px solid rgba(255,77,77,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#ff8a80;margin-bottom:4px;">수출</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">DENSO AP 도구 Full-Set 수출 (4.8억)</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(77,184,255,.12);border:1px solid rgba(77,184,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;">성장</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">인재육성형 중소기업 선정</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(41,121,255,.12);border:1px solid rgba(41,121,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#7eb8ff;margin-bottom:4px;">제품</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">R18-03 / R18-10 출시</div>
+</div>
+</div>
+
+<!-- 2019 -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:stretch;gap:0;">
+<div style="background:rgba(124,77,255,.12);border:1px solid rgba(124,77,255,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#b388ff;margin-bottom:4px;">글로벌</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">일본법인 설립</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(77,184,255,.12);border:1px solid rgba(77,184,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;">성장</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">신보 투자유치 (10억)</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(255,77,77,.12);border:1px solid rgba(255,77,77,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#ff8a80;margin-bottom:4px;">수출</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">AVL · Huawei 수출</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(255,152,0,.12);border:1px solid rgba(255,152,0,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#ffb74d;margin-bottom:4px;">교육</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">산자부 AP 교육과정 개발</div>
+</div>
+</div>
+
+<!-- 2020-2022 -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:stretch;gap:0;">
+<div style="background:rgba(77,184,255,.12);border:1px solid rgba(77,184,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;">성장</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">BIG3 미래차 유망기업 선정</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(41,121,255,.12);border:1px solid rgba(41,121,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#7eb8ff;margin-bottom:4px;">공급</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">AUBASS White Label 공급</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#81c784;margin-bottom:4px;">과제</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">자율주행 기술개발 혁신사업</div>
+</div>
+</div>
+
+<!-- 2023 -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:stretch;gap:0;">
+<div style="background:rgba(0,188,212,.12);border:1px solid rgba(0,188,212,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#4dd0e1;margin-bottom:4px;">투자</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">시리즈 A 투자유치 (50억)</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(124,77,255,.12);border:1px solid rgba(124,77,255,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#b388ff;margin-bottom:4px;">글로벌</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">SDV 컨소시엄 (한국, 미국, 일본)</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(255,152,0,.12);border:1px solid rgba(255,152,0,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#ffb74d;margin-bottom:4px;">교육</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">연세대·국민대 AP 단독공급</div>
+</div>
+</div>
+
+<!-- 2024 -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:stretch;gap:0;">
+<div style="background:rgba(41,121,255,.12);border:1px solid rgba(41,121,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#7eb8ff;margin-bottom:4px;">제품</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">Cloud-native AUTOSAR 플랫폼 론칭</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#81c784;margin-bottom:4px;">과제</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">멀티 SW 플랫폼 · 사이버보안</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(41,121,255,.12);border:1px solid rgba(41,121,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#7eb8ff;margin-bottom:4px;">제품</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">R22-11 설계도구 출시</div>
+</div>
+</div>
+
+<!-- 2025 -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:stretch;gap:0;">
+<div style="background:rgba(77,184,255,.12);border:1px solid rgba(77,184,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;">성장</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">국가 SDV 표준 제정 참여사 선정</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(77,184,255,.12);border:1px solid rgba(77,184,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;">성장</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">AI챔피언대회 입상</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(0,188,212,.12);border:1px solid rgba(0,188,212,.28);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#4dd0e1;margin-bottom:4px;">투자</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">투자유치 20억</div>
+</div>
+<div style="width:1px;height:14px;border-left:2px dashed rgba(77,184,255,.25);margin:0 auto;"></div>
+<div style="background:rgba(41,121,255,.12);border:1px solid rgba(41,121,255,.3);border-radius:8px;padding:7px 10px;">
+<div style="font-size:11px;font-weight:700;color:#7eb8ff;margin-bottom:4px;">양산</div>
+<div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.45;">KGM-모비스 2028양산 · R24-11</div>
+</div>
+</div>
+
+</div><!-- /cards row -->
+
+</section>
+<section class="slide" id="s8">
+<div class="slide-header">
+<h2>팝콘사 주요 제품군 개요</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<!-- Subtitle -->
+<div style="text-align:center;font-size:22px;font-weight:500;color:rgba(255,255,255,.7);padding:36px 0 0;letter-spacing:.3px;">팝콘사에서 자체 개발한 AUTOSAR 솔루션 및 AI 솔루션</div>
+<div style="position:relative;width:1200px;height:530px;margin:8px auto 0;">
+<!-- AI Boundary -->
+<div style="position:absolute;left:60px;top:80px;width:370px;height:460px;border:2px solid rgba(77,184,255,.35);border-radius:14px;">
+<div style="position:absolute;top:-12px;left:18px;background:var(--navy);padding:2px 12px;font-size:13px;font-weight:700;color:var(--cyan);letter-spacing:1.5px;border:1.5px solid rgba(77,184,255,.35);border-radius:5px;">AI 제품군</div>
+</div>
+<!-- AUTOSAR Boundary -->
+<div style="position:absolute;left:490px;top:80px;width:650px;height:460px;border:2px solid rgba(77,184,255,.35);border-radius:14px;">
+<div style="position:absolute;top:-12px;left:18px;background:var(--navy);padding:2px 12px;font-size:13px;font-weight:700;color:var(--cyan);letter-spacing:1.5px;border:1.5px solid rgba(77,184,255,.35);border-radius:5px;">AUTOSAR 제품군</div>
+</div>
+<!-- PAIO Container -->
+<div style="position:absolute;left:340px;top:105px;width:510px;height:192px;border:2.5px solid rgba(212,136,46,.85);border-radius:12px;background:rgba(212,136,46,.13);box-shadow:0 0 18px rgba(212,136,46,.18),inset 0 0 24px rgba(212,136,46,.07);">
+<!-- PAIO label badge -->
+<div style="position:absolute;top:-15px;left:16px;">
+<div style="background:#D4882E;padding:4px 16px;font-size:14px;font-weight:700;color:#fff;letter-spacing:.8px;border-radius:6px;box-shadow:0 2px 8px rgba(212,136,46,.4);">PAIO</div>
+</div>
+<!-- Description -->
+<div style="position:absolute;top:16px;left:20px;width:190px;">
+<div style="font-size:12px;font-weight:700;color:#e8a84c;line-height:1.6;letter-spacing:.2px;">AI와 AUTOSAR를 연결하는</div>
+<div style="font-size:12px;font-weight:700;color:#e8a84c;line-height:1.6;letter-spacing:.2px;">통합 오케스트레이터</div>
+<div style="margin-top:8px;display:flex;align-items:center;gap:6px;">
+<span style="background:rgba(77,184,255,.18);color:#4db8ff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.3px;border:1px solid rgba(77,184,255,.35);">AI</span>
+<span style="font-size:11px;color:rgba(255,255,255,.45);">+</span>
+<span style="background:rgba(212,136,46,.2);color:#e8a84c;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.3px;border:1px solid rgba(212,136,46,.4);">AUTOSAR</span>
+</div>
+<div style="margin-top:8px;padding:5px 10px;background:rgba(212,136,46,.25);border-left:3px solid #D4882E;border-radius:0 4px 4px 0;">
+<div style="font-size:10.5px;font-weight:700;color:#fff;line-height:1.5;letter-spacing:.1px;">AI Agent/Workflow가 내장된<br/>세계 최초의 AUTOSAR 솔루션</div>
+</div>
+</div>
+</div>
+<!-- ═══ TOP ROW ═══ -->
+<!-- PARVIS -->
+<div onmouseout="this.style.boxShadow='0 3px 12px rgba(0,0,0,.18)';this.style.transform='none'" onmouseover="this.style.boxShadow='0 6px 22px rgba(77,184,255,.25)';this.style.transform='translateY(-2px)'" style="position:absolute;left:96px;top:115px;width:218px;height:170px;background:#C5DCF0;border-radius:12px;display:flex;flex-direction:column;align-items:center;box-shadow:0 3px 12px rgba(0,0,0,.18);transition:all .25s;cursor:default;overflow:hidden;">
+<div style="width:100%;height:4px;background:#4db8ff;flex-shrink:0;"></div>
+<div style="margin-top:14px;background:rgba(255,255,255,.95);color:#0d1b3e;padding:5px 22px;border-radius:6px;font-weight:700;font-size:15px;letter-spacing:-.2px;">PARVIS</div>
+<div style="flex:1;display:flex;align-items:center;padding:8px 16px;text-align:center;font-size:12px;color:#2A4A6C;line-height:1.5;">AI 기반 ASPICE 자동화<br/>및 테스트 자동 생성</div>
+</div>
+<!-- AutoSAR.io (inside PAIO — AI + AUTOSAR 결합 강조) -->
+<div onmouseout="this.style.boxShadow='0 3px 12px rgba(0,0,0,.18)';this.style.transform='none'" onmouseover="this.style.boxShadow='0 6px 22px rgba(212,136,46,.3)';this.style.transform='translateY(-2px)'" style="position:absolute;left:570px;top:122px;width:240px;height:154px;background:#C5DCF0;border-radius:12px;display:flex;flex-direction:column;align-items:center;z-index:5;box-shadow:0 3px 12px rgba(0,0,0,.18);transition:all .25s;cursor:default;overflow:hidden;">
+<div style="width:100%;height:4px;background:#D4882E;flex-shrink:0;"></div>
+<div style="margin-top:14px;background:rgba(255,255,255,.95);color:#0d1b3e;padding:5px 22px;border-radius:6px;font-weight:700;font-size:15px;letter-spacing:-.2px;">AutoSAR.io</div>
+<div style="flex:1;display:flex;align-items:center;padding:4px 16px;text-align:center;font-size:12px;color:#2A4A6C;line-height:1.5;">AUTOSAR ARXML 설계<br/>및 코드 생성 도구</div>
+</div>
+<!-- ═══ BOTTOM ROW ═══ -->
+<!-- PARVIS ADK -->
+<div onmouseout="this.style.boxShadow='0 3px 12px rgba(0,0,0,.18)';this.style.transform='none'" onmouseover="this.style.boxShadow='0 6px 22px rgba(77,184,255,.25)';this.style.transform='translateY(-2px)'" style="position:absolute;left:96px;top:330px;width:218px;height:180px;background:#C5DCF0;border-radius:12px;display:flex;flex-direction:column;align-items:center;box-shadow:0 3px 12px rgba(0,0,0,.18);transition:all .25s;cursor:default;overflow:hidden;">
+<div style="width:100%;height:4px;background:#4db8ff;flex-shrink:0;"></div>
+<div style="margin-top:16px;background:rgba(255,255,255,.95);color:#0d1b3e;padding:5px 18px;border-radius:6px;font-weight:700;font-size:14px;letter-spacing:-.2px;">PARVIS ADK</div>
+<div style="flex:1;display:flex;align-items:center;padding:8px 16px;text-align:center;font-size:12px;color:#2A4A6C;line-height:1.5;">SDV End-to-End<br/>자동화 개발 플랫폼</div>
+</div>
+<!-- AUTOSAR AGENT -->
+<div onmouseout="this.style.boxShadow='0 3px 12px rgba(0,0,0,.18)';this.style.transform='none'" onmouseover="this.style.boxShadow='0 6px 22px rgba(124,77,255,.3)';this.style.transform='translateY(-2px)'" style="position:absolute;left:370px;top:330px;width:218px;height:180px;background:#C5DCF0;border-radius:12px;display:flex;flex-direction:column;align-items:center;box-shadow:0 3px 12px rgba(0,0,0,.18);transition:all .25s;cursor:default;overflow:hidden;">
+<div style="width:100%;height:4px;background:#7c4dff;flex-shrink:0;"></div>
+<div style="margin-top:16px;background:rgba(255,255,255,.95);color:#0d1b3e;padding:5px 14px;border-radius:6px;font-weight:700;font-size:13px;letter-spacing:-.2px;">AUTOSAR AGENT</div>
+<div style="flex:1;display:flex;align-items:center;padding:8px 16px;text-align:center;font-size:12px;color:#2A4A6C;line-height:1.5;">AI 자연어 기반<br/>AUTOSAR 개발 지원 도구</div>
+</div>
+<!-- PARA -->
+<div onmouseout="this.style.boxShadow='0 3px 12px rgba(0,0,0,.18)';this.style.transform='none'" onmouseover="this.style.boxShadow='0 6px 22px rgba(41,121,255,.3)';this.style.transform='translateY(-2px)'" style="position:absolute;left:644px;top:330px;width:218px;height:180px;background:#C5DCF0;border-radius:12px;display:flex;flex-direction:column;align-items:center;box-shadow:0 3px 12px rgba(0,0,0,.18);transition:all .25s;cursor:default;overflow:hidden;">
+<div style="width:100%;height:4px;background:#2979ff;flex-shrink:0;"></div>
+<div style="margin-top:16px;background:rgba(255,255,255,.95);color:#0d1b3e;padding:5px 22px;border-radius:6px;font-weight:700;font-size:15px;letter-spacing:-.2px;">PARA</div>
+<div style="flex:1;display:flex;align-items:center;padding:8px 16px;text-align:center;font-size:12px;color:#2A4A6C;line-height:1.5;">AUTOSAR Adaptive Platform<br/>Functional Clusters</div>
+</div>
+<!-- PRTE -->
+<div onmouseout="this.style.boxShadow='0 3px 12px rgba(0,0,0,.18)';this.style.transform='none'" onmouseover="this.style.boxShadow='0 6px 22px rgba(41,121,255,.3)';this.style.transform='translateY(-2px)'" style="position:absolute;left:918px;top:330px;width:218px;height:180px;background:#C5DCF0;border-radius:12px;display:flex;flex-direction:column;align-items:center;box-shadow:0 3px 12px rgba(0,0,0,.18);transition:all .25s;cursor:default;overflow:hidden;">
+<div style="width:100%;height:4px;background:#2979ff;flex-shrink:0;"></div>
+<div style="margin-top:16px;background:rgba(255,255,255,.95);color:#0d1b3e;padding:5px 22px;border-radius:6px;font-weight:700;font-size:15px;letter-spacing:-.2px;">PRTE</div>
+<div style="flex:1;display:flex;align-items:center;padding:8px 16px;text-align:center;font-size:12px;color:#2A4A6C;line-height:1.5;">AUTOSAR Classic Platform<br/>OS · RTE · BSWs</div>
+</div>
+</div>
+</section>
+<section class="slide sec-slide" id="s9">
+<div class="sec-num">02</div>
+<div class="sec-divider-line"></div>
+<div class="sec-title">프로젝트 및 레퍼런스</div>
+<div class="sec-sub">
+<span>Project History</span>
+<span>·</span>
+<span>Customer Cases</span>
+</div>
+</section>
+<section class="slide" id="s10">
+<div class="slide-header">
+<h2>AUTOSAR 주요 수행 프로젝트 이력</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div style="display:flex;flex-direction:column;height:calc(720px - 52px);padding:8px 36px 48px;box-sizing:border-box;overflow:hidden;">
+<div class="hi-box" style="font-size:15px;padding:8px 16px;flex-shrink:0;margin-bottom:6px;">
+<span>팝콘사 자체 개발 도구 (설계도구 및 AP Stack)로 프로젝트 수행 완료</span>
+</div>
+<table class="proj-table" style="flex:1;min-height:0;overflow:hidden;table-layout:fixed;">
+<thead>
+<tr>
+<th style="width:14%;padding:8px 14px;">거래처</th>
+<th style="width:25%;padding:8px 14px;">프로젝트명</th>
+<th style="padding:8px 14px;">개요</th>
+<th style="width:22%;padding:8px 14px;">적용 플랫폼</th>
+</tr>
+</thead>
+<tbody style="height:100%;">
+<tr style="height:1px;">
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;"><span class="logo-cell" style="color:#ffffff;font-size:15px;font-weight:700;">LG Innotek</span></td>
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;">AVM 프로젝트</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;line-height:1.55;">Volvo의 Around View Monitoring MCU AUTOSAR 개발 (4개 카메라 연동)</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;"><span class="platform-badge" style="font-size:13px;">Classic AUTOSAR</span></td>
+</tr>
+<tr style="height:1px;">
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;"><span class="logo-cell" style="color:#ffffff;font-size:15px;font-weight:700;">LG Electronics</span></td>
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;">DDA 프로젝트</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;line-height:1.55;">폭스바겐 Transceiver Module의 MCU AUTOSAR 개발 (차량 네트워크, 진단)</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;"><span class="platform-badge" style="font-size:13px;">Classic AUTOSAR</span></td>
+</tr>
+<tr style="height:1px;">
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;"><span class="logo-cell" style="color:#ffffff;font-size:15px;font-weight:700;">DENSO</span></td>
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;">Adaptive AUTOSAR Full-set</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;line-height:1.55;">전세계 최초의 Adaptive AUTOSAR 솔루션 납품 사례 (서버 형태로 납품)</td>
+<td style="font-size:13px;padding:0 16px;vertical-align:middle;"><span class="platform-badge" style="font-size:12px;">Adaptive AUTOSAR<br/>(R17-10 ~ R20-11)</span></td>
+</tr>
+<tr style="height:1px;">
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;"><span class="logo-cell" style="font-size:15px;font-weight:700;line-height:1.4;">HYUNDAI<br/>KEFICO</span></td>
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;">VCP 선행개발</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;line-height:1.55;">NXP S32G 기반의 Adaptive Platform과 Python AI가 적용된 차세대 파워트레인 (Container 기술 도입 최초 사례)</td>
+<td style="font-size:13px;padding:0 16px;vertical-align:middle;"><span class="platform-badge" style="font-size:12px;">Adaptive AUTOSAR<br/>(R19-10 ~ R20-11)</span></td>
+</tr>
+<tr style="height:1px;">
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;"><span class="logo-cell" style="font-size:15px;font-weight:700;line-height:1.4;">HYUNDAI<br/>MOBIS</span></td>
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;">ADAS 글로벌 OE 대응 플랫폼 통합</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;line-height:1.55;">QNX 7.1 + ROS2 + Adaptive Platform 퀄컴 기반의 ADAS 통합제어기 SW 개발</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;"><span class="platform-badge" style="font-size:13px;">Adaptive AUTOSAR (R20-11)</span></td>
+</tr>
+<tr style="height:1px;">
+<td style="font-size:15px;padding:0 16px;vertical-align:middle;"><span class="logo-cell" style="color:#ffffff;font-size:15px;font-weight:700;">LG Energy Solution</span></td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;white-space:nowrap;">BMS SW을 위한 AUTOSAR 지원</td>
+<td style="font-size:14px;padding:0 16px;vertical-align:middle;line-height:1.55;">BMS SW 플랫폼 구축을 통한 내재화 Simulink 호환성 검증</td>
+<td style="font-size:13px;padding:0 16px;vertical-align:middle;"><span class="platform-badge" style="font-size:12px;">Classic + Adaptive AUTOSAR (R20-11)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide" id="s11">
+<div class="slide-header">
+<h2>LG전자</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="hi-box" style="margin:8px 36px 0;"><span></span><span>LG전자의 AUTOSAR 전문기업으로 인정되어 폭스바겐 양산 프로젝트 수행</span></div>
+<div class="two-col" style="padding:12px 36px;">
+<!-- Left -->
+<div>
+<div class="sub-title">스마트 안테나 통신 모듈 MCU의 AUTOSAR 개발</div>
+<div class="flow-row" style="margin:10px 0 4px;justify-content:center;">
+<div style="text-align:center">
+<div class="flow-box" style="background:rgba(77,184,255,.15);border-color:var(--cyan);">PopcornSAR</div>
+<div class="flow-label">(B sample 개발 및 컨설팅)</div>
+</div>
+<span class="flow-arrow">⇌</span>
+<div style="text-align:center">
+<div class="flow-box">LG 전자</div>
+<div class="flow-label">(요구사항 전달)</div>
+</div>
+<span class="flow-arrow">⇌</span>
+<div style="text-align:center">
+<div class="flow-box">폭스바겐</div>
+<div class="flow-label">(모듈 납품)</div>
+</div>
+</div>
+<div class="sec-box" style="margin-top:10px;">
+<div class="sec-box-header blue">팝콘사 선택 배경</div>
+<div class="sec-box-body">
+<ul>
+<li>단기간에 4,000페이지가 넘는 폭스바겐 독일어 요구사양서 분석</li>
+<li>LG로부터 자체 개발도구 보유한 <span class="hl">국내 유일의 AUTOSAR 전문 기업으로 인정</span></li>
+</ul>
+</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header blue">프로젝트 수행의 의미</div>
+<div class="sec-box-body">
+<ul>
+<li>개발에 사용한 플랫폼은 경쟁사인 Vector를 채용하였으나, <span class="und">모든 개발은 팝콘사가 자체 개발한 초기 개발도구(=AutoSAR.io)만으로</span> 설계 및 개발 진행</li>
+<li>팝콘사의 자체개발도구가 타사와의 호환성을 가졌다는 방증이 되었기에, <span class="und">개발 도구의 완성도를 평가</span>받는 자연스러운 기회가 되었음</li>
+<li><span class="hl">이러한 레퍼런스가 향후 프로젝트 수행에 큰 역할을 함</span></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Right -->
+<div>
+<div class="sub-title" style="background:rgba(26,90,40,.5);border-color:var(--green);">LG전자 AUTOSAR 개발 내재화 단독 지원</div>
+<div class="sec-box" style="margin-top:8px;">
+<div class="sec-box-header" style="background:#1a5a28;">LG전자 전장부품 사업부의 고민 해결</div>
+<div class="sec-box-body">
+<ul>
+<li>고객사(OEM)의 필수 요구사항인 AUTOSAR 경험 전무</li>
+<li>전장부품 사업부 구성원 대부분이 타 개발사업부에서 배속된 초급 인력</li>
+<li>폭스바겐 수주를 위한 AUTOSAR 솔루션의 부재</li>
+<li>→ Vector나 ETAS와 같은 외산 개발도구의 비용 부담 존재</li>
+</ul>
+</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header" style="background:#1a5a28;">인력양성을 위한 노력</div>
+<div class="sec-box-body">
+<ul>
+<li><span class="hl">LG전자 담당자 3명(책임급)이 팝콘사 사무실에 파견 상주하여 개발 진행</span></li>
+<li>약 4개월간 매일 AUTOSAR 교육을 받으며 개발 스킬 향상</li>
+<li>LG전자 전장부품사업부 대상 전담 AUTOSAR 교육 업체 지정 (~2018년까지)</li>
+<li>→ <span class="und">LG전자 VC사업부 408명 AUTOSAR 교육 과정 수료</span></li>
+<li>AUTOSAR 개발 가이드라인 문서 배포</li>
+<li>→ <span class="hl">당시 상세한 개발 가이드라인은 경쟁사에서도 제공하지 않았기에 강점이 됨</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s12">
+<div class="slide-header">
+<h2>LG전자</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="content-area">
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:6px;padding:10px 16px;margin-bottom:14px;">
+<div style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:8px;">
+          " Classic AUTOSAR <span style="color:var(--cyan);">전담 교육 지정 업체</span> 등록 ('16~'18) "
+        </div>
+</div>
+<div class="two-col">
+<div>
+<div class="sec-box">
+<div class="sec-box-header blue">◆ 교육 개요</div>
+<div class="sec-box-body">
+<ul>
+<li>LG전자의 <span class="tag-cyan">전장사업 VC 사업본부(Vehicle Components)</span>에서 수행 예정인 AUTOSAR 프로젝트 참여자를 대상으로 <span class="tag-cyan">AUTOSAR 전문가 양성</span>을 집중하여 VC 사업본부의 비즈니스 영역 확장 및 영업 실적 달성 목표</li>
+<li>중장기 초/중/고급 과정(총 72시간)의 교육 커리큘럼 구성</li>
+<li>Classic AUTOSAR BSW, RTE, SW-C 구현 등</li>
+</ul>
+</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header blue">◆ 협력 사항</div>
+<div class="sec-box-body">
+<ul>
+<li>스마트폰 개발자를 전장 소프트웨어로 개발자로 전향 지원<br/>· LG전자 스마트폰 사업 포기 (2021년)</li>
+<li>LG전자 재직자 맞춤형 AUTOSAR 교육을 통해 <span class="tag-cyan">현업 개발에 필요한 기술 전수</span></li>
+<li>원활한 교육을 위해 <span class="tag-cyan">팝콘사가 보유한 AUTOSAR 개발 도구 및 교재 사용</span></li>
+</ul>
+</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header" style="background:#1a5a28;">◆ 교육 수행 결과</div>
+<div class="sec-box-body">
+<ul>
+<li><span class="tag-green">총 408명의 Classic AUTOSAR 전문가 배출</span>하여 AUTOSAR 프로젝트 수행</li>
+<li>일부 전문가는 타 OEM 및 Tier1의 <span class="tag-green">핵심 인재로서 영입되는 결과로 직결됨</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div style="height:228px;background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;overflow:hidden;">
+<img alt="교육 현장 사진 1" src="PART2 그림/그림1.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+</div>
+<div style="height:228px;background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;overflow:hidden;">
+<img alt="교육 현장 사진 2" src="PART2 그림/그림2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s13">
+<div class="slide-header">
+<h2>Denso</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="hi-box" style="margin:8px 36px 0;"><span></span><span>글로벌 전장부품기업 2위↑, Denso↑ Adaptive AUTOSAR 개발 도구 납품</span></div>
+<div class="two-col" style="padding:8px 36px;">
+<div>
+<div class="sub-title">세계 최초의 Adaptive AUTOSAR 개발 도구 납품</div>
+<div style="border-radius:5px;overflow:hidden;margin:8px 0;">
+<img alt="Denso" src="PART2 그림/그림3.jpg" style="width:100%;max-height:200px;object-fit:contain;display:block;border-radius:5px;"/>
+</div>
+<div class="sec-box">
+<div class="sec-box-header blue">팝콘사 선택 배경</div>
+<div class="sec-box-body">
+<ul>
+<li>2017년 10월 최초로 고성능 제어기 기반 첨단 기능을 구현하기 위한 목적의 Adaptive AUTOSAR 표준 사양서 공개 (R17-10)</li>
+<li>팝콘사는 핵심 사업으로의 가능성을 보고, 즉시 개발도구에 사양 반영 작업을 시작하였고, <span class="und">2017년 12월 세계 최초의 Adaptive AUTOSAR 개발도구 개발</span></li>
+<li>2018년 1월, 글로벌 자동차 전시회인 일본 Automotive World에 제품 시연을 선보인 가운데, Denso의 SW 담당부서에서 시연을 본 후 미팅을 의뢰</li>
+<li><span class="und">미팅 2개월만인 2018년 3월, Denso에 Adaptive AUTOSAR 표준 기반의 개발 도구를 납품하는 쾌거를 이룸</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div>
+<div class="sub-title" style="background:rgba(26,90,40,.5);border-color:var(--green);">Denso의 글로벌 개발도구 비교 경쟁에서 1위를 차지</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:24px;padding:16px 0;margin-bottom:8px;">
+<div style="background:rgba(77,184,255,.15);border:2px solid var(--cyan);border-radius:8px;padding:12px 22px;font-size:16px;font-weight:700;color:var(--cyan);">PopcornSAR 🥇</div>
+<div style="font-size:18px;color:var(--gray);">vs</div>
+<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:12px 22px;font-size:16px;color:var(--gray);">VECTOR</div>
+<div style="font-size:18px;color:var(--gray);">vs</div>
+<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:12px 22px;font-size:16px;color:var(--gray);">dSPACE</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header" style="background:#5a4000;">Denso의 검증 목적</div>
+<div class="sec-box-body">
+<ul>
+<li>Denso는 일본 Toyota의 핵심 공급업체 (현대차-현대모비스와 같은 공생관계)</li>
+<li>Toyota는 AUTOSAR 표준 협회를 설립한 코어 멤버로 일찍이 Adaptive AUTOSAR 표준 사양을 만들고, 자사 차량에 적용하려는 움직임이 활발했음</li>
+<li>이에, Denso를 필두로 Adaptive AUTOSAR 선행개발 차량 제어기에 대한 요구사항이 있었고, 팝콘사를 포함한 경쟁사 2개사 선정 (Vector, dSPACE)</li>
+</ul>
+</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header" style="background:#1a5a28;">Denso의 검증 결과</div>
+<div class="sec-box-body">
+<ul>
+<li>2018년 3월부터 2018년 12월까지 3개사의 개발도구를 구매하여 일본 기업 특유의 체계적이고 까다로운 내부 검증을 진행하였음</li>
+<li>결과적으로 <span class="tag-green">팝콘사가 유일하게 검증을 통과</span>하였고, Denso가 출자한 SW기업(AUBASS)과 유일한 비즈니스 파트너로서 계약을 체결하는 계기가 됨</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s14">
+<div class="slide-header">
+<h2>현대케피코</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="hi-box" style="margin:8px 36px 0;"><span></span><span>현대 그룹사 전장부품업체와의 첫 계약 체결</span></div>
+<div class="two-col" style="padding:8px 36px;">
+<div>
+<div class="sub-title">세계 최초 AI 기술이 적용된 파워트레인 선행 개발</div>
+<div class="flow-row" style="margin:14px 0;justify-content:center;">
+<div style="text-align:center">
+<div class="flow-box" style="background:rgba(77,184,255,.15);border-color:var(--cyan);font-size:14px;padding:10px 16px;">PopcornSAR</div>
+</div>
+<span class="flow-arrow" style="font-size:20px;">⇌</span>
+<div style="text-align:center">
+<div class="flow-box" style="font-size:14px;padding:10px 16px;">HYUNDAI KEFICO</div>
+<div class="flow-label" style="font-size:13px;">(현대자동차 요구사항 전달)</div>
+</div>
+<span class="flow-arrow" style="font-size:20px;">→</span>
+<div style="text-align:center">
+<div class="flow-box" style="font-size:14px;padding:10px 16px;">🖥️ AI 파워트레인</div>
+</div>
+</div>
+<div style="text-align:right;font-size:12px;color:var(--gray);margin-bottom:8px;">(개발 및 내재화 지원)</div>
+<div class="sec-box">
+<div class="sec-box-header blue">팝콘사 선택 배경</div>
+<div class="sec-box-body">
+<ul>
+<li>현대케피코에서 자사 제어기에 <span class="hl">최초로 Adaptive AUTOSAR와 On-device AI를 적용</span>하는 실증 과제를 기획</li>
+<li>현대케피코에서 약 3개월간 국내외 Adaptive AUTOSAR 사업을 영위하는 업체들과의 미팅 결과, <span class="hl">유일하게 기술적 방향성을 제시하였던 팝콘사를 선택</span></li>
+</ul>
+</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header blue">프로젝트 수행의 의미</div>
+<div class="sec-box-body">
+<ul>
+<li>AI 학습을 통한 사용자 맞춤화 Application 구현을 위한 기술성 검증</li>
+<li><span class="und">Adaptive AUTOSAR와 파이썬 기반 AI 모델의 정합성 검증</span></li>
+<li>→ <span class="hl">Adaptive AUTOSAR와 AI는 요소 기술이 전혀 달라 통합 난이도가 높음</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div>
+<div class="sub-title" style="background:rgba(26,90,40,.5);border-color:var(--green);">현대 그룹사와의 비교 검증에서 우위 획득</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:24px;padding:16px 0;margin-bottom:8px;">
+<div style="background:rgba(77,184,255,.15);border:2px solid var(--cyan);border-radius:8px;padding:12px 22px;font-size:16px;font-weight:700;color:var(--cyan);">PopcornSAR 🥇</div>
+<div style="font-size:18px;color:var(--gray);">vs</div>
+<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:12px 22px;font-size:16px;color:var(--gray);">VECTOR</div>
+<div style="font-size:18px;color:var(--gray);">vs</div>
+<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:12px 22px;font-size:16px;color:var(--gray);">HYUNDAI AutoEver</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header" style="background:#5a4000;">그룹사 정책을 뛰어넘은 팝콘사의 기술력</div>
+<div class="sec-box-body">
+<ul>
+<li>현대그룹사는 원칙적으로 그룹사에서 SW 도입 시, <span class="hl">현대오토에버를 통해 계약을 진행하도록 정해져 있음</span>('24년에는 정책이 변경되어 현대차에서 직접 구매)</li>
+<li>현대오토에버는 팝콘사의 경쟁사로서 현대그룹사 전용 배포 목적으로 Adaptive AUTOSAR 개발도구(모빌진C, 모빌진A)를 자체 개발하고 있음</li>
+<li>하지만 현대케피코에서 계약을 위한 기술 검토 과정에서 <span class="und">팝콘사와 비교에서 현대오토에버의 제품은 프로젝트 진행에 필요한 주요 기능들이 결여</span>되어 있는 점을 이슈 사항으로 제기하여 양사의 개발도구를 동시 수행 과제로 선택</li>
+<li>→ POC를 현대오토에버, 팝콘사, VECTOR 3사 개발도구 시연하고 팝콘사 개발도구로 개발된 샘플이 유일하게 요구성능을 발휘함</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s15">
+<div class="slide-header">
+<h2>현대모비스</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="hi-box" style="margin:8px 36px 0;"><span></span><span>현대모비스의 글로벌 OEM 타겟을 위한 통합 ECU 개발</span></div>
+<div class="two-col" style="padding:8px 36px;">
+<div>
+<div class="sub-title">현대모비스의 핵심 운영사 선정의 초석이 된 프로젝트</div>
+<div class="flow-row" style="margin:14px 0;justify-content:center;">
+<div style="text-align:center">
+<div class="flow-box" style="background:rgba(77,184,255,.15);border-color:var(--cyan);font-size:14px;padding:10px 16px;">PopcornSAR</div>
+</div>
+<span class="flow-arrow" style="font-size:20px;">⇌</span>
+<div style="text-align:center">
+<div class="flow-box" style="font-size:14px;padding:10px 16px;">HYUNDAI MOBIS</div>
+<div class="flow-label" style="font-size:13px;">(해외 OEM 요구사항 전달)</div>
+</div>
+<span class="flow-arrow" style="font-size:20px;">→</span>
+<div style="text-align:center">
+<div class="flow-box" style="font-size:14px;padding:10px 16px;">통합 ECU<br/>(Cockpit+ADAS)</div>
+</div>
+</div>
+<div style="font-size:12px;color:var(--gray);text-align:right;margin-bottom:8px;">(통합 개발 수행)</div>
+<div class="sec-box">
+<div class="sec-box-header blue">팝콘사 선택 배경</div>
+<div class="sec-box-body">
+<ul>
+<li>현대모비스에서 해외 OEM 판로 개척을 위한 시장조사 가운데, <span class="und">Adaptive AUTOSAR와 함께 다양한 센서데이터를 처리하기 위한 ROS2라는 플랫폼이 통합되어야 하는 요구사항 발생</span></li>
+<li><span class="hl">현대케피코의 AI 통합 사례를 전해들은 현대모비스 임원진의 추천</span>을 통해 담당 그룹(차세대플랫폼셀)과 사전 기술 검증 완료 후, 프로젝트 수행</li>
+</ul>
+</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header blue">프로젝트 수행의 의미</div>
+<div class="sec-box-body">
+<ul>
+<li>현대모비스의 해외 OEM 수요 및 시장성 검증</li>
+<li>본 프로젝트를 성공적으로 수행함에 따라, <span class="hl">현대모비스 주관의 SDV 플랫폼 컨소시엄의 유일한 AUTOSAR 전문 기업 및 대표운영사로 선정</span>되는 결과로 이어짐</li>
+</ul>
+</div>
+</div>
+</div>
+<div>
+<div class="sub-title" style="background:rgba(26,90,40,.5);border-color:var(--green);">2026년 양산을 위한 실증 진행</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:20px;margin:14px 0;">
+<div style="background:rgba(77,184,255,.15);border:2px solid var(--cyan);padding:12px 22px;border-radius:8px;font-size:15px;font-weight:700;color:var(--white);">HYUNDAI MOBIS + PopcornSAR</div>
+<span style="color:var(--cyan);font-size:22px;">→</span>
+<div style="background:rgba(26,90,40,.4);border:2px solid var(--green);padding:12px 22px;border-radius:8px;font-size:15px;font-weight:700;color:var(--white);">해외 OEM</div>
+</div>
+<div class="sec-box">
+<div class="sec-box-header" style="background:#5a4000;">통합 ECU 실증을 통한 SDV 시장성 검증</div>
+<div class="sec-box-body">
+<ul>
+<li>현대모비스는 전술한 ADAS 통합 ECU 프로젝트를 당시 접촉하였던 북미의 고급 전기자동차 OEM인 'Karma'와 선행 프로젝트를 수행중에 있음</li>
+<li>통합 ECU에는 <span class="hl">팝콘사의 Adaptive AUTOSAR 플랫폼이 탑재</span>되어 있으며, 플랫폼에 올라가는 Application 구현 작업에는 팝콘사의 개발도구만 사용하여 진행하고 있음</li>
+<li>2024년 10월 현대모비스 사장, 현대자동차 임원 레벨까지 본 프로젝트 진행상황에 대해 모비스 시연 및 결과보고가 이루어졌음</li>
+<li>현 시점에서 주간 단위로 현대모비스의 요구사항을 받아 실시간으로 반영하여 차기 과제 연계를 위한 대응을 하고 있음</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s16">
+<div class="slide-header">
+<h2>현대모비스</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="two-col" style="padding:12px 36px;">
+<div>
+<div class="sub-title">SDV를 위한 신규 아키텍처 도입</div>
+<!-- Zonal Architecture diagram -->
+<div style="background:rgba(0,0,0,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;padding:10px;margin-top:8px;">
+<div style="display:flex;gap:14px;align-items:flex-start;">
+<!-- Domain structure -->
+<div style="flex:1;">
+<div style="font-size:13px;color:var(--gray);text-align:center;margin-bottom:7px;">기존 도메인 구조</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;">
+<div style="background:rgba(77,184,255,.15);border:1px solid rgba(77,184,255,.3);border-radius:3px;padding:7px;font-size:12px;text-align:center;">Zonal Controller</div>
+<div style="background:rgba(77,184,255,.15);border:1px solid rgba(77,184,255,.3);border-radius:3px;padding:7px;font-size:12px;text-align:center;">Zonal Controller</div>
+</div>
+<div style="background:rgba(26,58,122,.5);border:1px solid rgba(77,184,255,.3);border-radius:4px;padding:10px;margin-bottom:6px;">
+<div style="font-size:13px;text-align:center;color:var(--white);margin-bottom:5px;">Vehicle Computer</div>
+<div style="background:#ff9800;border-radius:2px;padding:6px;font-size:12px;text-align:center;color:#000;">Cockpit</div>
+<div style="background:#2196f3;border-radius:2px;padding:6px;font-size:12px;text-align:center;margin-top:4px;">ADAS/AI</div>
+<div style="background:#ffd600;border-radius:2px;padding:6px;font-size:12px;text-align:center;margin-top:4px;color:#000;">Adaptive AUTOSAR ← 팝콘사</div>
+</div>
+<div style="background:rgba(77,184,255,.2);border:1px solid rgba(77,184,255,.3);border-radius:2px;padding:6px;font-size:12px;text-align:center;">Gateway</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;">
+<div style="background:rgba(77,184,255,.15);border:1px solid rgba(77,184,255,.3);border-radius:3px;padding:7px;font-size:12px;text-align:center;">Zonal Controller</div>
+<div style="background:rgba(77,184,255,.15);border:1px solid rgba(77,184,255,.3);border-radius:3px;padding:7px;font-size:12px;text-align:center;">Zonal Controller</div>
+</div>
+</div>
+<!-- Zonal Architecture image -->
+<div style="flex:1;border-radius:4px;overflow:hidden;">
+<img alt="Zonal Architecture" src="PART2 그림/그림6.png" style="width:100%;max-height:280px;object-fit:contain;display:block;border-radius:4px;"/>
+</div>
+</div>
+</div>
+<div class="sec-box" style="margin-top:8px;">
+<div class="sec-box-header blue">SDV의 핵심인 소프트웨어 중심 접근에 효과적인 Zonal architecture</div>
+<div class="sec-box-body">
+<ul>
+<li>SDV가 요구하는 <span class="hl">고성능 컴퓨터에서의 빠른 SW 업데이트와 신기능 도입에 적합</span></li>
+<li><span class="hl">수많은 ECU를 줄여</span> 구역별 기능 집중 관리 가능한 환경 조성</li>
+<li>차량 내 여러 구역의 데이터를 중앙 집약 관리하여 <span class="hl">통합과 처리 속도 우수</span></li>
+<li>결과적으로 성능을 향상시키면서도 개발 비용을 절감 실현</li>
+</ul>
+</div>
+</div>
+</div>
+<div>
+<div class="sub-title" style="background:rgba(26,90,40,.5);border-color:var(--green);">현대모비스 본사 테크쇼 시연</div>
+<div style="border-radius:5px;overflow:hidden;margin-top:8px;margin-bottom:8px;">
+<img alt="테크쇼 시연 장면" src="PART2 그림/그림7.png" style="width:100%;max-height:300px;object-fit:contain;display:block;border-radius:5px;"/>
+</div>
+<div class="sec-box">
+<div class="sec-box-header" style="background:#1a5a28;">Zonal Architecture와 팝콘사의 Adaptive AUTOSAR 솔루션 적용</div>
+<div class="sec-box-body">
+<ul>
+<li>'24.09.23~24, 현대자동차 경영진, 현대모비스 사장/부사장 방문 점검</li>
+<li>본 프로젝트(EEVP)를 위해 1년 간, <span class="hl">팝콘사의 솔루션을 적용하면서 현대모비스와 주 1회 이상 실무 협의 및 현장 출장 지원</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s17">
+<div class="slide-header">
+<h2>LG에너지솔루션 BMS 관련 Adaptive AUTOSAR PoC 수행</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:10px 36px;height:calc(720px - 52px);box-sizing:border-box;">
+<div style="display:flex;flex-direction:column;min-height:0;">
+<div class="sec-box" style="flex-shrink:0;margin-bottom:10px;">
+<div class="sec-box-header blue">1차 PoC (24년 10월 ~ 25년 2월)</div>
+<div class="sec-box-body">팝콘사 제품 기반에 NXP S32G2에 AA 구현 및 Simulink 호환성 검증<br/>➤ BMS SW용 AUTOSAR 설계 지원 및 SDV 패키지 제공</div>
+</div>
+<div style="flex:1;min-height:0;border-radius:4px;overflow:hidden;border:1px solid rgba(77,184,255,.15);">
+<img alt="HPC 아키텍처" src="PART2 그림/그림8.png" style="width:100%;height:100%;object-fit:contain;display:block;"/>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;min-height:0;">
+<div class="sec-box" style="flex-shrink:0;margin-bottom:10px;">
+<div class="sec-box-header blue">2차 PoC (25년 3월 ~ 26년 8월)</div>
+<div class="sec-box-body">LG엔솔 Classic AUTOSAR BMS를 Adaptive AUTOSAR Migration<br/>➤ 25년 5월 일본 도요타/혼다에 고성능 제어기(HPC)기반의 BMS-IVI 가상기반 데모 시연</div>
+</div>
+<div style="flex:1;min-height:0;border-radius:4px;overflow:hidden;border:1px solid rgba(77,184,255,.15);">
+<img alt="BMS HMI GUI" src="PART2 그림/그림9.png" style="width:100%;height:100%;object-fit:contain;display:block;"/>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s18">
+<div class="slide-header">
+<h2>SL(에스엘) AI 기술용역 계약 · 개발 범위 및 실행 로드맵</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div style="display:flex;flex-direction:column;height:calc(720px - 52px);padding:6px 36px 48px;box-sizing:border-box;overflow:hidden;">
+<div class="hi-box" style="flex-shrink:0;margin:0 0 6px;"><span>SL(에스엘) AI 기술용역 계약 체결</span></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:16px;overflow:hidden;">
+<!-- Left: 계약 범위 · 개발 아이템 -->
+<div style="display:flex;flex-direction:column;height:100%;gap:8px;">
+<div class="sub-title" style="flex-shrink:0;margin-bottom:0;">계약 범위 · 개발 아이템</div>
+<div class="contract-item" style="flex:0.8;margin-bottom:0;">
+<div class="ci-label">AI 기술 용역</div>
+<div class="ci-body">AI 기반 사양서 분석 · 테스트 컨셉 도출<br/>ISO 26262 / ASPICE 기반 AI 에이전트 구성</div>
+</div>
+<div class="contract-item" style="flex:2.5;margin-bottom:0;overflow:hidden;">
+<div class="ci-label">본 계약 개발 아이템 (별첨#1 개발계획서)</div>
+<div class="ci-body">
+              ① AI 사양서 데이터 분석 및 Test Case 표현 구조 정의<br/>
+              ② 자연어/표/이미지 이해 AI 학습 및 기능 고도화<br/>
+              ③ AI 자동 생성 Test Case 기능 구현 및 정확도 향상<br/>
+              ④ Test Method &amp; 과거차 문제점 기반 AI Test Case 점검 기능 구현<br/>
+              ⑤ 잠재적 사용자 시나리오 관점의 AI Test Case 생성 기능 구현<br/>
+              ⑥ 사양 변경에 따른 AI 분석 및 제안 기능 구현
+            </div>
+</div>
+<div class="contract-item" style="flex:0.9;margin-bottom:0;">
+<div class="ci-label">대상 ECU 5종</div>
+<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">
+<span style="background:rgba(255,80,80,.2);border-radius:10px;padding:2px 8px;font-size:13px;color:#ff8a80;">램프</span>
+<span style="background:rgba(255,80,80,.2);border-radius:10px;padding:2px 8px;font-size:13px;color:#ff8a80;">빌트인캠</span>
+<span style="background:rgba(255,80,80,.2);border-radius:10px;padding:2px 8px;font-size:13px;color:#ff8a80;">PLBM</span>
+<span style="background:rgba(255,80,80,.2);border-radius:10px;padding:2px 8px;font-size:13px;color:#ff8a80;">SBW</span>
+<span style="background:rgba(255,80,80,.2);border-radius:10px;padding:2px 8px;font-size:13px;color:#ff8a80;">SBCM</span>
+</div>
+</div>
+<div class="contract-item" style="flex:0.8;margin-bottom:0;">
+<div class="ci-label">운영 환경</div>
+<div class="ci-body">SL 사내 서버(로컬) 운영 · 원격 유지보수<br/>PARVIS 버전 고정 제공 · HITL 기반 협업 구조</div>
+</div>
+</div>
+<!-- Right: 프로젝트 실행 로드맵 -->
+<div style="display:flex;flex-direction:column;height:100%;justify-content:space-between;">
+<div class="sub-title" style="flex-shrink:0;margin-bottom:0;">프로젝트 실행 로드맵</div>
+<div class="rm-item">
+<div class="rm-dot done"></div>
+<div>
+<div class="rm-period">2026.03.09 ~ 03.20 진량공장 파견 ✅ 완료</div>
+<div class="rm-body">AI 서버 셋팅 · 모델 선정 · 테스트 환경 구축 완료<br/>램프 사양서 기반 초기 데이터 수집 완료<br/>팝콘사 엔지니어 2주간 현장 파견 완료</div>
+</div>
+</div>
+<div class="rm-item">
+<div class="rm-dot next"></div>
+<div>
+<div class="rm-period">2026.04 ~ 06 본 계약 1단계: 램프(Lamp) ▶ 다음 단계</div>
+<div class="rm-body">사양서 구조화 · 템플릿화 작업<br/>AI 기반 테스트 컨셉 자동 도출<br/>HITL(Human-in-the-Loop) 검증 프로세스 구축</div>
+</div>
+</div>
+<div class="rm-item">
+<div class="rm-dot todo"></div>
+<div>
+<div class="rm-period">2026.07 ~ 09 본 계약 2단계: PLBM 확장</div>
+<div class="rm-body">램프 템플릿 → PLBM 수평 적용<br/>이미지·표·복합 구조 대응 고도화<br/>실무자 사용성 테스트 및 피드백 반영</div>
+</div>
+</div>
+<div class="rm-item" style="border-bottom:none;">
+<div class="rm-dot plan"></div>
+<div>
+<div class="rm-period">2026.10 ~ 2027.01 안정화·전개</div>
+<div class="rm-body">실무 활용 수준까지 안정화<br/>추가 아이템(빌트인캠, SBW 등) 수평 전개<br/>원격 유지보수 체계 가동</div>
+</div>
+</div>
+<div style="background:rgba(76,175,80,.15);border:1px solid var(--green);border-radius:4px;padding:8px 10px;font-size:13px;color:var(--green);flex-shrink:0;">
+            ✅ 진량공장 파견 완료 → 🚀 4월 본 계약 1단계 본격 착수 준비 완료
+          </div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide sec-slide" id="s19">
+<div class="sec-num">03</div>
+<div class="sec-divider-line"></div>
+<div class="sec-title">글로벌 컨소시엄 참여 현황</div>
+<div class="sec-sub">
+<span>SDVerse Marketplace</span>
+<span>·</span>
+<span>SDV National Standard</span>
+<span>·</span>
+<span>OSDVI Japan</span>
+<span>·</span>
+<span>Government R&amp;D Projects</span>
+</div>
+</section>
+<section class="slide" id="s20">
+<div class="slide-header">
+<h2>SDVerse — 글로벌 차량 SW 마켓플레이스에 유일한 도구기업으로 참여</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="content-area" style="display:flex;flex-direction:column;height:calc(720px - 52px);padding-bottom:48px;">
+<div class="hi-box" style="background:linear-gradient(90deg,rgba(240,192,0,.18) 0%,rgba(240,192,0,.03) 100%);border-left:4px solid #ffd700;border-top:1px solid rgba(255,220,0,.3);border-bottom:1px solid rgba(255,220,0,.3);color:#ffd54f;font-size:15px;font-weight:500;margin-bottom:12px;">
+        GM · 마그나 · 위프로가 설립한 차량 SW 마켓플레이스 — 표준 플랫폼 Adaptive AUTOSAR, 조달 시간 80% 단축
+      </div>
+<div class="two-col" style="flex:1;min-height:0;gap:18px;">
+<!-- ▌ LEFT: 핵심 수치 + 파트너 -->
+<div style="display:flex;flex-direction:column;gap:14px;">
+<!-- KPI 카드 3개 -->
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+<div style="background:rgba(240,192,0,.1);border:1px solid rgba(240,192,0,.3);border-radius:6px;padding:20px 10px;text-align:center;">
+<div style="font-size:52px;font-weight:900;color:#ffd54f;line-height:1;">12개</div>
+<div style="font-size:15px;color:var(--gray);margin-top:6px;">제품 판매 중</div>
+</div>
+<div style="background:rgba(77,184,255,.08);border:1px solid rgba(77,184,255,.3);border-radius:6px;padding:20px 10px;text-align:center;">
+<div style="font-size:52px;font-weight:900;color:var(--cyan);line-height:1;">80%</div>
+<div style="font-size:15px;color:var(--gray);margin-top:6px;">조달 시간 단축</div>
+</div>
+<div style="background:rgba(77,184,255,.08);border:1px solid rgba(77,184,255,.3);border-radius:6px;padding:20px 10px;text-align:center;">
+<div style="font-size:28px;font-weight:900;color:var(--cyan2);line-height:1.2;">유일한<br/>도구기업</div>
+<div style="font-size:15px;color:var(--gray);margin-top:6px;">PopcornSAR</div>
+</div>
+</div>
+<!-- 핵심 포인트 -->
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;padding:16px 18px;font-size:17px;color:rgba(255,255,255,.9);line-height:1.8;">
+            • 주 고객 OEM: <span style="color:var(--cyan);font-weight:700;">GM · 르노</span> (창립 운영사)<br/>
+            • GM 구매팀과 3월 온라인 협의 진행 중<br/>
+            • AI 제품 포함 SDV 전용 SW 12개 제품 등록·판매
+          </div>
+<!-- 파트너 간소화 -->
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+<div style="font-size:14px;color:var(--gray);margin-bottom:8px;">Founding Members &amp; Key Partners</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<div class="partner-item" style="font-size:15px;padding:9px 14px;background:rgba(0,120,200,.15);border-color:rgba(0,150,255,.3);">General Motors</div>
+<div class="partner-item" style="font-size:15px;padding:9px 14px;">MAGNA</div>
+<div class="partner-item" style="font-size:15px;padding:9px 14px;">wipro</div>
+<div class="partner-item" style="font-size:15px;padding:9px 14px;">Renault</div>
+<div class="partner-item" style="font-size:15px;padding:9px 14px;">BOSCH</div>
+<div class="partner-item" style="font-size:15px;padding:9px 14px;">Valeo</div>
+<div class="partner-item" style="font-size:15px;padding:9px 14px;">NXP</div>
+<div class="partner-item" style="font-size:15px;padding:9px 14px;">HL Mando</div>
+<div class="partner-item highlight" style="font-size:15px;padding:9px 14px;">PopcornSAR</div>
+</div>
+</div>
+</div>
+<!-- ▌ RIGHT: 12개 제품 리스트 (제품명만) -->
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:2px;">
+<div style="background:#f0c000;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#000;">SD</div>
+<div><span style="font-size:22px;font-weight:900;color:#f0c000;">SDVerse</span><span style="font-size:14px;color:var(--gray);margin-left:10px;">sdverse.auto</span></div>
+</div>
+<div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:2px;">판매 중인 12개 제품</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;align-content:stretch;">
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">Automotive API Gateway</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">In-Vehicle App Dev Kit</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">Container Mgmt for HPC</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">Signal Comm for HPC</div>
+<div style="background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.3);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:#ffb74d;display:flex;align-items:center;gap:6px;">🤖 AI Requirements Mgmt</div>
+<div style="background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.3);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:#ffb74d;display:flex;align-items:center;gap:6px;">🤖 AI Code Generation</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">AUTOSAR Classic Bridge</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">Diagnostic Manager</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">Health Monitoring</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">Network Management</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">OTA Update Manager</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:4px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--cyan2);display:flex;align-items:center;">Security Framework</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s21">
+<div class="slide-header">
+<h2>SDV 국가 표준 — 정부·현대차 주도, 팝콘사 유일 스타트업 참여</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="content-area" style="display:flex;flex-direction:column;height:calc(720px - 52px);padding-bottom:48px;">
+<div class="hi-box" style="background:linear-gradient(90deg,rgba(77,184,255,.22) 0%,rgba(77,184,255,.04) 100%);border-left:4px solid var(--cyan);border-top:1px solid rgba(77,184,255,.3);border-bottom:1px solid rgba(77,184,255,.3);color:var(--cyan2);font-size:15px;font-weight:500;margin-bottom:12px;">
+        현대자동차의 요청으로 시작 · 25년 8월 ~ 26년 12월 완료 · 참여 스타트업은 팝콘사가 유일
+      </div>
+<div class="two-col" style="flex:1;min-height:0;gap:18px;">
+<!-- ▌ LEFT: 참여 기관 그룹화 -->
+<div style="display:flex;flex-direction:column;gap:12px;">
+<!-- 주관 -->
+<div style="background:rgba(0,80,160,.15);border:1px solid rgba(0,100,200,.3);border-radius:5px;padding:14px 16px;">
+<div style="font-size:14px;color:var(--gray);margin-bottom:6px;">주관</div>
+<div style="font-size:22px;font-weight:700;color:var(--white);">🏛️ 산업통상자원부</div>
+</div>
+<!-- 대기업 -->
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;padding:14px 16px;flex:1;">
+<div style="font-size:14px;color:var(--gray);margin-bottom:8px;">참여 대기업 (8)</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div class="nat-logo" style="font-size:16px;padding:8px 13px;background:rgba(0,0,180,.12);">HYUNDAI</div>
+<div class="nat-logo" style="font-size:16px;padding:8px 13px;">42dot</div>
+<div class="nat-logo" style="font-size:16px;padding:8px 13px;">HYUNDAI MOBIS</div>
+<div class="nat-logo" style="font-size:16px;padding:8px 13px;">HL Mando</div>
+<div class="nat-logo" style="font-size:16px;padding:8px 13px;background:rgba(165,0,52,.12);">LG전자</div>
+<div class="nat-logo" style="font-size:16px;padding:8px 13px;">SAMSUNG</div>
+<div class="nat-logo" style="font-size:16px;padding:8px 13px;background:rgba(0,100,200,.12);">KT</div>
+<div class="nat-logo" style="font-size:16px;padding:8px 13px;background:rgba(0,180,0,.08);">NAVER</div>
+</div>
+</div>
+<!-- 학계/기관 -->
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;padding:14px 16px;">
+<div style="font-size:14px;color:var(--gray);margin-bottom:8px;">학계 · 연구기관 (6)</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div class="nat-logo" style="font-size:15px;padding:7px 12px;">연세대</div>
+<div class="nat-logo" style="font-size:15px;padding:7px 12px;">KAIST</div>
+<div class="nat-logo" style="font-size:15px;padding:7px 12px;">국민대</div>
+<div class="nat-logo" style="font-size:15px;padding:7px 12px;">KETI</div>
+<div class="nat-logo" style="font-size:15px;padding:7px 12px;">KIAPI</div>
+<div class="nat-logo" style="font-size:15px;padding:7px 12px;">KSA</div>
+</div>
+</div>
+<!-- PopcornSAR 강조 -->
+<div style="background:rgba(77,184,255,.15);border:2px solid var(--cyan);border-radius:5px;padding:14px 18px;display:flex;align-items:center;gap:14px;">
+<div style="font-size:26px;font-weight:900;color:var(--cyan);">PopcornSAR</div>
+<div style="font-size:16px;color:rgba(255,255,255,.85);">— 유일한 스타트업 참여 기업</div>
+</div>
+</div>
+<!-- ▌ RIGHT: SDV API 다이어그램 -->
+<div style="display:flex;flex-direction:column;gap:14px;">
+<div style="font-size:18px;font-weight:700;color:var(--white);">SDV API 표준 — 차량 내외부 연결 인터페이스</div>
+<div style="background:rgba(0,0,0,.25);border:1px solid rgba(77,184,255,.2);border-radius:6px;padding:20px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;">
+<!-- 외부 시스템 -->
+<div style="display:flex;justify-content:center;gap:12px;">
+<div class="api-box" style="font-size:16px;padding:14px 16px;text-align:center;flex:1;">☁️ Cloud</div>
+<div class="api-box" style="font-size:16px;padding:14px 16px;text-align:center;flex:1;">🏠 Smart Home</div>
+<div class="api-box" style="font-size:16px;padding:14px 16px;text-align:center;flex:1;">📱 Nomadic Device</div>
+<div class="api-box" style="font-size:16px;padding:14px 16px;text-align:center;flex:1;">📡 V2X</div>
+</div>
+<!-- 화살표 + API 중앙 -->
+<div style="display:flex;align-items:center;justify-content:center;gap:20px;">
+<div style="font-size:22px;color:var(--gray);">⬇ I/F ⬇</div>
+<div style="background:rgba(255,80,80,.2);border:2px solid var(--red);border-radius:8px;padding:18px 40px;text-align:center;">
+<div style="font-size:36px;font-weight:900;color:var(--red);">SDV API</div>
+<div style="font-size:14px;color:var(--gray);margin-top:4px;">On-Board Standard</div>
+</div>
+<div style="font-size:22px;color:var(--gray);">⬇ I/F ⬇</div>
+</div>
+<!-- 차량 내부 시스템 -->
+<div style="display:flex;justify-content:center;gap:12px;">
+<div class="api-box" style="font-size:16px;padding:14px 16px;text-align:center;flex:1;">🚗 차체</div>
+<div class="api-box" style="font-size:16px;padding:14px 16px;text-align:center;flex:1;">⚙️ 제어기</div>
+<div class="api-box" style="font-size:16px;padding:14px 16px;text-align:center;flex:1;">🏃 모터</div>
+<div class="api-box" style="font-size:16px;padding:14px 16px;text-align:center;flex:1;">🔋 배터리</div>
+</div>
+</div>
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;padding:12px 16px;font-size:16px;color:rgba(255,255,255,.85);line-height:1.6;">
+            CAPSTONE 등과 함께 차량 내외부를 연결하는 표준 인터페이스(SDV API) 정의에 참여
+          </div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s22">
+<div class="slide-header">
+<h2>일본 OSDVI — SDV 표준화 컨소시엄에 유일 도구기업 참여</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="content-area" style="display:flex;flex-direction:column;height:calc(720px - 52px);padding-bottom:48px;">
+<div class="hi-box" style="background:linear-gradient(90deg,rgba(77,184,255,.22) 0%,rgba(77,184,255,.04) 100%);border-left:4px solid var(--cyan);border-top:1px solid rgba(77,184,255,.3);border-bottom:1px solid rgba(77,184,255,.3);color:var(--cyan2);font-size:15px;font-weight:500;margin-bottom:12px;">
+        일본 정부 · 나고야대 주도 Open SDV Initiative — AA 플랫폼 확정, 팝콘사 개발도구 WG 메인 참여
+      </div>
+<div class="two-col" style="flex:1;min-height:0;gap:18px;">
+<!-- ▌ LEFT: OSDVI 개요 + 주요 참여사 간소화 -->
+<div style="display:flex;flex-direction:column;gap:12px;">
+<!-- 배경 핵심 -->
+<div style="background:rgba(26,58,122,.3);border:1px solid rgba(77,184,255,.2);border-radius:5px;padding:16px 18px;font-size:17px;color:rgba(255,255,255,.9);line-height:1.8;">
+            • <span style="color:var(--cyan);font-weight:700;">중국의 차량 API 표준화·양산에 대한 위기감</span>으로 일본 주도 표준화 시급 추진<br/>
+            • 2024년 10월 kick-off, 총 <span style="color:var(--cyan2);font-weight:700;">34개사</span> 참여<br/>
+            • 팝콘사 재팬이 참여, AA 개발도구 WG 메인 채택
+          </div>
+<!-- 참여사 대표 그룹 -->
+<div style="display:flex;flex-direction:column;gap:10px;flex:1;">
+<div style="font-size:16px;font-weight:700;color:var(--white);">주요 참여 기업 (34개사)</div>
+<div style="background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.15);border-radius:5px;padding:14px 16px;">
+<div style="font-size:14px;color:var(--gray);margin-bottom:8px;">OEM (2)</div>
+<div style="display:flex;gap:10px;">
+<div class="osdvi-logo" style="font-size:19px;padding:10px 20px;font-weight:700;">SUZUKI</div>
+<div class="osdvi-logo" style="font-size:19px;padding:10px 20px;font-weight:700;">Mazda</div>
+</div>
+</div>
+<div style="background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.15);border-radius:5px;padding:14px 16px;flex:1;">
+<div style="font-size:14px;color:var(--gray);margin-bottom:8px;">Tier 1 · IT · 반도체 (12)</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">YAZAKI</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">AISIN</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">HITACHI Astemo</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">SUMITOMO</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">SoftBank</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">NEC</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">RENESAS</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">Pioneer</div>
+</div>
+</div>
+<div style="background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.15);border-radius:5px;padding:14px 16px;">
+<div style="font-size:14px;color:var(--gray);margin-bottom:8px;">SW 기업 (18) — 일본 특화 SDV 개발</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div class="osdvi-logo popcorn" style="font-size:16px;padding:7px 14px;">PopcornSAR</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">TIER IV</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">eSoL</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">Canon IT</div>
+<div class="osdvi-logo" style="font-size:15px;padding:7px 12px;">SYNOPSYS</div>
+<div style="font-size:15px;color:var(--gray);padding:7px 4px;">외 13개사</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ▌ RIGHT: 팝콘사 포지션 + OEM 영업 목표 -->
+<div style="display:flex;flex-direction:column;gap:14px;">
+<!-- 팝콘사 포지션 -->
+<div style="background:rgba(77,184,255,.1);border:2px solid var(--cyan);border-radius:6px;padding:22px 18px;text-align:center;">
+<div style="font-size:26px;font-weight:900;color:var(--cyan);margin-bottom:8px;">PopcornSAR Japan</div>
+<div style="font-size:17px;color:rgba(255,255,255,.85);line-height:1.7;">
+              유일한 Adaptive AUTOSAR 도구기업<br/>
+              개발도구 워킹그룹 메인 참여
+            </div>
+</div>
+<!-- 전략적 의미 -->
+<div style="background:rgba(26,58,122,.35);border-left:4px solid var(--cyan);border-radius:0 5px 5px 0;padding:16px 18px;">
+<div style="font-size:18px;font-weight:700;color:var(--cyan2);margin-bottom:8px;">전략적 의미</div>
+<div style="font-size:16px;color:rgba(255,255,255,.85);line-height:1.75;">
+              • 표준화 플랫폼에 AA 확정<br/>
+              • 참여 OEM 영업 기반 확보<br/>
+              • 일본 SDV 생태계 선점
+            </div>
+</div>
+<!-- OEM 영업 목표 — 대형 카드 -->
+<div style="background:rgba(255,0,0,.06);border:2px solid rgba(255,80,80,.35);border-radius:6px;padding:22px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+<div style="font-size:18px;font-weight:700;color:#ff8a80;margin-bottom:16px;text-align:center;">🎯 일본 Vehicle OEM 영업 목표</div>
+<div style="display:flex;gap:14px;justify-content:center;">
+<div style="background:rgba(255,0,0,.1);border:2px solid rgba(255,80,80,.3);border-radius:6px;padding:18px 10px;text-align:center;flex:1;">
+<div style="font-size:30px;font-weight:900;color:#ff4444;">TOYOTA</div>
+</div>
+<div style="background:rgba(255,0,0,.1);border:2px solid rgba(255,80,80,.3);border-radius:6px;padding:18px 10px;text-align:center;flex:1;">
+<div style="font-size:30px;font-weight:900;color:#ff4444;">HONDA</div>
+</div>
+<div style="background:rgba(255,0,0,.1);border:2px solid rgba(255,80,80,.3);border-radius:6px;padding:18px 10px;text-align:center;flex:1;">
+<div style="font-size:30px;font-weight:900;color:#ff4444;">NISSAN</div>
+</div>
+</div>
+<div style="font-size:15px;color:var(--gray);text-align:center;margin-top:12px;">SUZUKI 포함 일본 OEM 3개사 추가 영업 목표</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide" id="s23">
+<div class="slide-header">
+<h2>수행중인 주요 국책과제</h2>
+<div class="logo-badge">PopcornSAR</div>
+</div>
+<div class="content-area" style="display:flex;flex-direction:column;height:calc(720px - 52px);padding-bottom:48px;">
+<div class="hi-box" style="background:linear-gradient(90deg,rgba(77,184,255,.22) 0%,rgba(77,184,255,.04) 100%);border-left:4px solid var(--cyan);border-top:1px solid rgba(77,184,255,.3);border-bottom:1px solid rgba(77,184,255,.3);color:var(--cyan2);font-size:15px;font-weight:500;margin-bottom:12px;">
+<span></span><span>산업통상자원부 주관 3개 국책과제에 팝콘사 Adaptive AUTOSAR 플랫폼 채택 — 약 500억원 규모</span>
+</div>
+<div class="two-col" style="flex:1;min-height:0;gap:16px;">
+<!-- ▌ LEFT: 3 project timeline cards -->
+<div style="display:flex;flex-direction:column;gap:10px;">
+<!-- Card 1: SDV -->
+<div style="background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.2);border-radius:5px;overflow:hidden;flex:1;">
+<div style="background:rgba(255,80,80,.12);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+<div style="font-size:17px;font-weight:700;color:#ff8a80;">SDV 전장 아키텍처 검증</div>
+<div style="font-size:15px;color:#ffb74d;font-weight:700;">257억원</div>
+</div>
+<div style="padding:10px 14px;font-size:15px;color:rgba(255,255,255,.9);line-height:1.6;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+<span style="background:var(--cyan);color:#000;border-radius:2px;padding:2px 8px;font-size:13px;font-weight:700;">2023.04 ~ 2026.12</span>
+<span style="color:var(--gray);font-size:13px;">현대모비스 총괄</span>
+</div>
+              • 구독형 차량 SW 실증 (6개 서비스)<br/>
+              • AA 개발환경 구축 — <span style="color:var(--cyan);font-weight:700;">PopcornSAR</span><br/>
+              • Adaptive Application <span style="color:var(--cyan2);font-weight:700;">개발자 100명 육성</span>
+</div>
+</div>
+<!-- Card 2: OSS -->
+<div style="background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.2);border-radius:5px;overflow:hidden;flex:1;">
+<div style="background:rgba(255,165,0,.12);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+<div style="font-size:17px;font-weight:700;color:#ffb74d;">오픈 SW 생태계 구축</div>
+<div style="font-size:15px;color:#ffb74d;font-weight:700;">222억원</div>
+</div>
+<div style="padding:10px 14px;font-size:15px;color:rgba(255,255,255,.9);line-height:1.6;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+<span style="background:var(--cyan);color:#000;border-radius:2px;padding:2px 8px;font-size:13px;font-weight:700;">2024.04 ~ 2028.12</span>
+<span style="color:var(--gray);font-size:13px;">17개 기관 컨소시엄</span>
+</div>
+              • 개방형 멀티 SW 플랫폼 차량 실증<br/>
+              • 핵심 플랫폼: <span style="color:var(--cyan);font-weight:700;">PopcornSAR</span> A.AUTOSAR 솔루션<br/>
+              • SOA 기반 플랫폼 매시/서비스 개발
+            </div>
+</div>
+<!-- Card 3: Cybersecurity -->
+<div style="background:rgba(26,58,122,.25);border:1px solid rgba(77,184,255,.2);border-radius:5px;overflow:hidden;flex:1;">
+<div style="background:rgba(76,175,80,.12);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+<div style="font-size:17px;font-weight:700;color:#81c784;">사이버보안 접근제어</div>
+<div style="font-size:15px;color:#81c784;font-weight:700;">신규 과제</div>
+</div>
+<div style="padding:10px 14px;font-size:15px;color:rgba(255,255,255,.9);line-height:1.6;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+<span style="background:var(--cyan);color:#000;border-radius:2px;padding:2px 8px;font-size:13px;font-weight:700;">2025 ~ 2028</span>
+<span style="color:var(--gray);font-size:13px;">산업통상자원부</span>
+</div>
+              • Adaptive AUTOSAR 기반 접근제어 솔루션<br/>
+              • 차량 E2E 보안 인증 · IDS/IPS 탑재<br/>
+              • 접근제어 보안기술 국내외 표준화
+            </div>
+</div>
+</div>
+<!-- ▌ RIGHT: Key Impact -->
+<div style="display:flex;flex-direction:column;gap:12px;">
+<!-- Big number highlight -->
+<div style="background:rgba(77,184,255,.08);border:1px solid rgba(77,184,255,.3);border-radius:6px;padding:20px;text-align:center;">
+<div style="font-size:56px;font-weight:900;color:var(--cyan);line-height:1;">~500억</div>
+<div style="font-size:16px;color:var(--gray);margin-top:6px;">3개 국책과제 총 규모</div>
+</div>
+<!-- Impact items -->
+<div style="display:flex;flex-direction:column;gap:10px;flex:1;">
+<div style="background:rgba(26,58,122,.35);border-left:4px solid var(--cyan);border-radius:0 5px 5px 0;padding:14px 16px;flex:1;display:flex;align-items:center;">
+<div>
+<div style="font-size:16px;font-weight:700;color:var(--cyan2);margin-bottom:5px;">공통 AA 플랫폼 채택</div>
+<div style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.55;">3개 과제 모두 팝콘사의 Adaptive AUTOSAR 플랫폼과 개발도구가 적용됨</div>
+</div>
+</div>
+<div style="background:rgba(26,58,122,.35);border-left:4px solid var(--yellow);border-radius:0 5px 5px 0;padding:14px 16px;flex:1;display:flex;align-items:center;">
+<div>
+<div style="font-size:16px;font-weight:700;color:var(--yellow);margin-bottom:5px;">정부 평가위원 위촉</div>
+<div style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.55;">과학기술정보통신부 모빌리티 핵심 과제 기획 평가위원 등재 및 신규 과제 추진 중</div>
+</div>
+</div>
+<div style="background:rgba(26,58,122,.35);border-left:4px solid var(--green);border-radius:0 5px 5px 0;padding:14px 16px;flex:1;display:flex;align-items:center;">
+<div>
+<div style="font-size:16px;font-weight:700;color:var(--green);margin-bottom:5px;">인력 양성 &amp; 생태계</div>
+<div style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.55;">AA 개발자 100명 육성 · 17개 기관 오픈 SW 컨소시엄 · 국내외 표준화 참여</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide closing-slide" id="s24">
+<div style="position:absolute;right:0;top:0;width:60%;height:100%;
+      background:linear-gradient(135deg,transparent 0%,rgba(30,80,180,.25) 30%,rgba(77,184,255,.15) 60%,rgba(255,255,255,.08) 100%);
+      clip-path:polygon(25% 0%,100% 0%,100% 100%,0% 100%);">
+</div>
+<!-- HUD circles -->
+<div style="position:absolute;border:1.5px solid rgba(77,184,255,.4);border-radius:50%;width:160px;height:160px;right:360px;top:300px;opacity:.5;"></div>
+<div style="position:absolute;border:1.5px solid rgba(77,184,255,.4);border-radius:50%;width:80px;height:80px;right:400px;top:340px;opacity:.4;"></div>
+<div style="position:absolute;border:1.5px solid rgba(77,184,255,.4);border-radius:50%;width:220px;height:220px;right:220px;bottom:60px;opacity:.3;"></div>
+<div class="closing-title">감사합니다!</div>
+<div style="position:absolute;left:32px;bottom:24px;font-size:11px;color:rgba(255,255,255,.4);">
+      Copyright © 2025 POPCORNSAR Co · Ltd All Rights Reserved
+    </div>
+<div style="position:absolute;right:32px;bottom:24px;font-size:16px;font-weight:700;color:var(--cyan);">
+      PopcornSAR
+    </div>
+</section>
+<button id="fs-btn" onclick="toggleFS()">⛶ 전체화면</button>
+  <div id="nav">
+    <button onclick="go(-1)">← 이전</button>
+    <button onclick="go(1)">다음 →</button>
+  </div>
+  <div id="counter">1 / 24</div>
+
+</div><!-- /#deck -->
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function showSlide(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    document.getElementById('counter').textContent = (cur+1) + ' / ' + total;
+  }
+  function go(d) { showSlide(cur + d); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(-1);
+    if (e.key === 'f' || e.key === 'F') toggleFS();
+  });
+
+  function toggleFS() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+
+  /* Scale deck to window */
+  function scaleDeck() {
+    const deck = document.getElementById('deck');
+    const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    const ox = (window.innerWidth  - 1280 * scale) / 2;
+    const oy = (window.innerHeight - 720  * scale) / 2;
+    deck.style.transform = `translate(${ox}px, ${oy}px) scale(${scale})`;
+  }
+  window.addEventListener('resize', scaleDeck);
+  scaleDeck();
+</script>
+</body>
+</html>
